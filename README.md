@@ -2,8 +2,7 @@
 
 # Hello Stylus
 
-Project starter template for writing Arbitrum Stylus programs in Rust. It includes a Rust implementation of a basic counter
-Ethereum smart contract:
+Project starter template for writing Arbitrum Stylus programs in Rust using the [stylus-sdk](https://github.com/OffchainLabs/stylus-sdk-rs). It includes a Rust implementation of a basic counter Ethereum smart contract:
 
 ```js
 // SPDX-License-Identifier: UNLICENSED
@@ -132,7 +131,7 @@ By default, the cargo stylus tool will build your project for WASM using sensibl
 
 ## Peeking Under the Hood
 
-The [stylus-sdk](https://github.com/OffchainLabs/stylus-sdk-rs) contains many features for writing simple to complex Stylus programs, and it provides helpful macros that make the experience for Solidity developers easy. These macros expand your code into pure Rust code that can then be compiled to WASM. If you want to see what the `hello-stylus` boilerplate expands into, you can use `cargo expand` to see the pure Rust code that will be deployed onchain.
+The [stylus-sdk](https://github.com/OffchainLabs/stylus-sdk-rs) contains many features for writing Stylus programs in Rust. It also provides helpful macros to make the experience for Solidity developers easier. These macros expand your code into pure Rust code that can then be compiled to WASM. If you want to see what the `hello-stylus` boilerplate expands into, you can use `cargo expand` to see the pure Rust code that will be deployed onchain.
 
 First, run `cargo install cargo-expand` if you don't have the subcommand already, then:
 
