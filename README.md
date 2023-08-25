@@ -155,6 +155,14 @@ let num = counter.number().call().await;
 println!("New counter number value = {:?}", num);
 ```
 
+Run it with:
+
+```
+cargo run --example counter --target=<YOUR_ARCHITECTURE>
+```
+
+Where you can find `YOUR_ARCHITECTURE` by running `rustc -vV | grep host`. For M1 Apple computers, for example, this is `aarch64-apple-darwin`.
+
 ## Build Options
 
 By default, the cargo stylus tool will build your project for WASM using sensible optimizations, but you can control how this gets compiled by seeing the full README for [cargo stylus](https://github.com/OffchainLabs/cargo-stylus). If you wish to optimize the size of your compiled WASM, see the different options available [here](https://github.com/OffchainLabs/cargo-stylus/blob/main/OPTIMIZING_BINARIES.md).
