@@ -133,7 +133,7 @@ Once both steps are successful, you can interact with your program as you would 
 
 ## Calling Your Program
 
-This template includes an example of how to call and transact with your program using [ethers-rs](https://github.com/gakonst/ethers-rs) under the `examples/` folder under `counter.rs`. By using the program address from your deployment step above, and your wallet, you can attempt to call the counter program and increase its value in storage:
+This template includes an example of how to call and transact with your program using [ethers-rs](https://github.com/gakonst/ethers-rs) under the `examples/counter.rs`. By using the program address from your deployment step above, and your wallet, you can attempt to call the counter program and increase its value in storage:
 
 ```rs
 abigen!(
