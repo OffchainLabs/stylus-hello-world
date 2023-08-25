@@ -29,6 +29,12 @@ Install [Rust](https://www.rust-lang.org/tools/install), and then install the St
 cargo install --git https://github.com/OffchainLabs/cargo-stylus
 ```
 
+Add the `wasm32-unknown-unknown` build target to your Rust compiler:
+
+```
+rustup target add wasm32-unknown-unknown
+```
+
 You should now have it available as a Cargo subcommand:
 
 ```bash
