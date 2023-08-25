@@ -1,9 +1,6 @@
-// Copyright 2023, Offchain Labs, Inc.
-// For license information, see https://github.com/OffchainLabs/nitro/blob/master/LICENSE
-// Warning: this code is a template only and has not been audited.
-
 //! Implements a hello-world example for Arbitrum Stylus, providing a Solidity ABI-equivalent
 //! Rust implementation of the Counter contract example provided by Foundry.
+//! Warning: this code is a template only and has not been audited.
 //! ```
 //! contract Counter {
 //!     uint256 public number;
