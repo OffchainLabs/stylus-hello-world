@@ -1,6 +1,6 @@
 ![Image](jazz.png)
 
-# Hello Stylus
+# Stylus Hello World
 
 Project starter template for writing Arbitrum Stylus programs in Rust using the [stylus-sdk](https://github.com/OffchainLabs/stylus-sdk-rs). It includes a Rust implementation of a basic counter Ethereum smart contract:
 
@@ -38,7 +38,7 @@ cargo stylus --help
 Then, clone the template:
 
 ```
-git clone https://github.com/OffchainLabs/hello-stylus && cd hello-stylus
+git clone https://github.com/OffchainLabs/stylus-hello-world && cd stylus-hello-world
 ```
 
 ### ABI Export
@@ -84,7 +84,7 @@ If successful, you should see:
 
 ```bash
 Finished release [optimized] target(s) in 1.88s
-Reading WASM file at hello-stylus/target/wasm32-unknown-unknown/release/hello-stylus.wasm
+Reading WASM file at stylus-hello-world/target/wasm32-unknown-unknown/release/stylus-hello-world.wasm
 Compressed WASM size: 8.9 KB
 Program succeeded Stylus onchain activation checks with Stylus version: 1
 ```
@@ -169,7 +169,7 @@ By default, the cargo stylus tool will build your project for WASM using sensibl
 
 ## Peeking Under the Hood
 
-The [stylus-sdk](https://github.com/OffchainLabs/stylus-sdk-rs) contains many features for writing Stylus programs in Rust. It also provides helpful macros to make the experience for Solidity developers easier. These macros expand your code into pure Rust code that can then be compiled to WASM. If you want to see what the `hello-stylus` boilerplate expands into, you can use `cargo expand` to see the pure Rust code that will be deployed onchain.
+The [stylus-sdk](https://github.com/OffchainLabs/stylus-sdk-rs) contains many features for writing Stylus programs in Rust. It also provides helpful macros to make the experience for Solidity developers easier. These macros expand your code into pure Rust code that can then be compiled to WASM. If you want to see what the `stylus-hello-world` boilerplate expands into, you can use `cargo expand` to see the pure Rust code that will be deployed onchain.
 
 First, run `cargo install cargo-expand` if you don't have the subcommand already, then:
 

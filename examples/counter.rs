@@ -1,4 +1,4 @@
-//! Example on how to interact with a deployed `hello-stylus` program using defaults.
+//! Example on how to interact with a deployed `stylus-hello-world` program using defaults.
 //! This example uses ethers-rs to instantiate the program using a Solidity ABI.
 //! Then, it attempts to check the current counter value, increment it via a tx,
 //! and check the value again. The deployed program is fully written in Rust and compiled to WASM
