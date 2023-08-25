@@ -35,6 +35,12 @@ You should now have it available as a Cargo subcommand:
 cargo stylus --help
 ```
 
+Then, clone the template:
+
+```
+git clone https://github.com/OffchainLabs/hello-stylus && cd hello-stylus
+```
+
 ### ABI Export
 
 You can export the Solidity ABI for your program by using the `cargo stylus` tool as follows:
