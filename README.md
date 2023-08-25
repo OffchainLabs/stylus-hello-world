@@ -79,7 +79,7 @@ If successful, you should see:
 ```bash
 Finished release [optimized] target(s) in 1.88s
 Reading WASM file at hello-stylus/target/wasm32-unknown-unknown/release/hello-stylus.wasm
-Compressed WASM size: 3 KB
+Compressed WASM size: 8.9 KB
 Program succeeded Stylus onchain activation checks with Stylus version: 1
 ```
 
@@ -96,9 +96,9 @@ You will then see the estimated gas costs before transacting:
 
 ```bash
 Estimating costs to deploy program at address 0x457b1ba688e9854bdbed2f473f7510c476a3da09
-Estimated gas: 12756792
+Estimated gas: 1973450
 Estimating costs to activate program at address 0x457b1ba688e9854bdbed2f473f7510c476a3da09
-Estimated gas: 12756792
+Estimated gas: 14044638
 ```
 
 Next, we're ready to actually deploy
@@ -112,15 +112,15 @@ cargo stylus deploy \
 The CLI will send 2 transactions to deploy and activate your program onchain.
 
 ```bash
-Compressed WASM size: 3 KB
+Compressed WASM size: 8.9 KB
 Deploying program to address 0x457b1ba688e9854bdbed2f473f7510c476a3da09
-Estimated gas: 12756792
+Estimated gas: 1973450
 Submitting tx...
-Confirmed tx 0x42db…7311, gas used 11657164
+Confirmed tx 0x42db…7311, gas used 1973450
 Activating program at address 0x457b1ba688e9854bdbed2f473f7510c476a3da09
-Estimated gas: 14251759
+Estimated gas: 14044638
 Submitting tx...
-Confirmed tx 0x0bdb…3307, gas used 14204908
+Confirmed tx 0x0bdb…3307, gas used 14044638
 ```
 
 Once both steps are successful, you can interact with your program as you would with any Ethereum smart contract.
