@@ -106,16 +106,17 @@ cargo stylus deploy \
   --estimate-gas-only
 ```
 
-You will then see the estimated gas costs before transacting:
+You will then see the estimated gas cost for deploying before transacting:
 
 ```bash
-Estimating costs to deploy program at address 0x457b1ba688e9854bdbed2f473f7510c476a3da09
-Estimated gas: 1973450
-Estimating costs to activate program at address 0x457b1ba688e9854bdbed2f473f7510c476a3da09
-Estimated gas: 14044638
+Deploying program to address e43a32b54e48c7ec0d3d9ed2d628783c23d65020
+Estimated gas for deployment: 1874876
 ```
 
-Next, we're ready to actually deploy
+The above only estimates gas for the deployment tx by default. To estimate gas for activation, first deploy your program using `--mode=deploy-only`, and then run `cargo stylus deploy` with the `--estimate-gas-only` flag, `--mode=activate-only`, and specify `--activate-program-address`.
+
+
+Here's how to deploy:
 
 ```bash
 cargo stylus deploy \
