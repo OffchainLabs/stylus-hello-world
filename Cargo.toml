@@ -24,5 +24,3 @@ strip = true
 lto = true
 panic = "abort"
 opt-level = "s"
-
-[workspace]

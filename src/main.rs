@@ -28,7 +28,7 @@ static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 // will generate Rust-equivalent structs with all fields mapped to Solidity-equivalent
 // storage slots and types.
 sol_storage! {
-    #[derive(Entrypoint)]
+    #[entrypoint]
     pub struct Counter {
         uint256 number;
     }

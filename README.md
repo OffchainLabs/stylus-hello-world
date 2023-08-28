@@ -120,7 +120,7 @@ Next, we're ready to actually deploy
 ```bash
 cargo stylus deploy \
   --private-key-path=<PRIVKEY_FILE_PATH> \
-  --endpoint=<STYLUS_TESTNET_RPC> \
+  --endpoint=<STYLUS_TESTNET_RPC>
 ```
 
 The CLI will send 2 transactions to deploy and activate your program onchain.
@@ -141,7 +141,9 @@ Once both steps are successful, you can interact with your program as you would 
 
 ## Calling Your Program
 
-This template includes an example of how to call and transact with your program using [ethers-rs](https://github.com/gakonst/ethers-rs) under the `examples/counter.rs`. By using the program address from your deployment step above, and your wallet, you can attempt to call the counter program and increase its value in storage:
+This template includes an example of how to call and transact with your program in Rust using [ethers-rs](https://github.com/gakonst/ethers-rs) under the `examples/counter.rs`. However, your programs are also Ethereum ABI equivalent if using the Stylus SDK. **They can be called and transacted with using any other Ethereum tooling.**
+
+By using the program address from your deployment step above, and your wallet, you can attempt to call the counter program and increase its value in storage:
 
 ```rs
 abigen!(
@@ -163,13 +165,21 @@ let num = counter.number().call().await;
 println!("New counter number value = {:?}", num);
 ```
 
-Run it with:
+To run it, set the following env vars or place them in a `.env` file this project, then:
+
+```
+STYLUS_PROGRAM_ADDRESS=<the onchain address of your deployed program>
+PRIV_KEY_PATH=<the file path for your priv key to transact with>
+RPC_URL=<the url for the Arbitrum chain backend you deployed your program to>
+```
+
+Next, run:
 
 ```
 cargo run --example counter --target=<YOUR_ARCHITECTURE>
 ```
 
-Where you can find `YOUR_ARCHITECTURE` by running `rustc -vV | grep host`. For M1 Apple computers, for example, this is `aarch64-apple-darwin`.
+Where you can find `YOUR_ARCHITECTURE` by running `rustc -vV | grep host`. For M1 Apple computers, for example, this is `aarch64-apple-darwin` and for most Linux x86 it is `x86_64-unknown-linux-gnu`
 
 ## Build Options
 

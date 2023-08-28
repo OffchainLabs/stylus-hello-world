@@ -10,12 +10,26 @@ use ethers::{
     signers::{LocalWallet, Signer},
     types::Address,
 };
+use eyre::eyre;
 use std::io::{BufRead, BufReader};
 use std::str::FromStr;
 use std::sync::Arc;
 
+// YOUR PRIVATE KEY FILE PATH.
+const ENV_PRIV_KEY_PATH: &str = "PRIV_KEY_PATH";
+// RPC URL FOR A STYLUS CHAIN ENDPOINT.
+const ENV_RPC_URL: &str = "RPC_URL";
+// DEPLOYED PROGRAM ADDRESS FOR STYLUS-HELLO-WORLD.
+const ENV_PROGRAM_ADDRESS: &str = "STYLUS_PROGRAM_ADDRESS";
+
 #[tokio::main]
 async fn main() -> eyre::Result<()> {
+    let priv_key_path = std::env::var(ENV_PRIV_KEY_PATH)
+        .map_err(|_| eyre!("No {} env var set", ENV_PRIV_KEY_PATH))?;
+    let rpc_url =
+        std::env::var(ENV_RPC_URL).map_err(|_| eyre!("No {} env var set", ENV_RPC_URL))?;
+    let program_address = std::env::var(ENV_PROGRAM_ADDRESS)
+        .map_err(|_| eyre!("No {} env var set", ENV_PROGRAM_ADDRESS))?;
     abigen!(
         Counter,
         r#"[
@@ -25,14 +39,10 @@ async fn main() -> eyre::Result<()> {
         ]"#
     );
 
-    const PRIV_KEY_PATH: &str = ""; // YOUR PRIVATE KEY FILE PATH HERE.
-    const RPC_URL: &str = ""; // RPC URL FOR A STYLUS CHAIN ENDPOINT.
-    const PROGRAM_ADDRESS: &str = ""; // DEPLOYED PROGRAM ADDRESS FOR HELLO STYLUS.
+    let provider = Provider::<Http>::try_from(rpc_url)?;
+    let address: Address = program_address.parse()?;
 
-    let provider = Provider::<Http>::try_from(RPC_URL)?;
-    let address: Address = PROGRAM_ADDRESS.parse()?;
-
-    let privkey = read_secret_from_file(PRIV_KEY_PATH)?;
+    let privkey = read_secret_from_file(&priv_key_path)?;
     let wallet = LocalWallet::from_str(&privkey)?;
     let chain_id = provider.get_chainid().await?.as_u64();
     let client = Arc::new(SignerMiddleware::new(
