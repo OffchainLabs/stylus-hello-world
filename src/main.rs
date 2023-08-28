@@ -17,12 +17,12 @@
 #![cfg_attr(not(feature = "export-abi"), no_main)]
 extern crate alloc;
 
-/// Import the Stylus SDK along with alloy primitive types for use in our program.
-use stylus_sdk::{alloy_primitives::U256, prelude::*};
-
 /// Initializes a custom, global allocator for Rust programs compiled to WASM.
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
+
+/// Import the Stylus SDK along with alloy primitive types for use in our program.
+use stylus_sdk::{alloy_primitives::U256, prelude::*};
 
 // Define the entrypoint as a Solidity storage object, in this case a struct
 // called `Counter` with a single uint256 value called `number`. The sol_storage! macro
