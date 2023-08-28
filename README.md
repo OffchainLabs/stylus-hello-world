@@ -1,4 +1,4 @@
-![Image](jazz.png)
+![Image](./header.png)
 
 # Stylus Hello World
 
