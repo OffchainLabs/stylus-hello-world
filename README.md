@@ -49,6 +49,10 @@ Then, clone the template:
 git clone https://github.com/OffchainLabs/stylus-hello-world && cd stylus-hello-world
 ```
 
+### Testnet Information
+
+All testnet information, including faucets and RPC endpoints can be found [here](https://docs.arbitrum.io/stylus/reference/testnet-information).
+
 ### ABI Export
 
 You can export the Solidity ABI for your program by using the `cargo stylus` tool as follows:
@@ -82,7 +86,7 @@ export-abi = ["stylus-sdk/export-abi"]
 ## Deploying
 
 You can use the `cargo stylus` command to also deploy your program to the Stylus testnet. We can use the tool to first check
-our program compiles to valid WASM for Stylus and will succeed a deployment onchain without transacting:
+our program compiles to valid WASM for Stylus and will succeed a deployment onchain without transacting. See here for [Stylus testnet information](https://docs.arbitrum.io/stylus/reference/testnet-information)
 
 ```bash
 cargo stylus check --endpoint=<STYLUS_TESTNET_RPC>
