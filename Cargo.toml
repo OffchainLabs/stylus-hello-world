@@ -4,6 +4,8 @@ version = "0.1.2"
 edition = "2021"
 keywords = ["arbitrum", "ethereum", "stylus", "alloy"]
 description = "Procedural macros for stylus-sdk"
+homepage = "https://github.com/OffchainLabs/stylus-hello-world"
+repository = "https://github.com/OffchainLabs/stylus-hello-world"
 
 [dependencies]
 alloy-primitives = "0.3.1"
