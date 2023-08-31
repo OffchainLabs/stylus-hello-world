@@ -86,10 +86,10 @@ export-abi = ["stylus-sdk/export-abi"]
 ## Deploying
 
 You can use the `cargo stylus` command to also deploy your program to the Stylus testnet. We can use the tool to first check
-our program compiles to valid WASM for Stylus and will succeed a deployment onchain without transacting. See here for [Stylus testnet information](https://docs.arbitrum.io/stylus/reference/testnet-information)
+our program compiles to valid WASM for Stylus and will succeed a deployment onchain without transacting. By default, this will use the Stylus testnet public RPC endpoint. See here for [Stylus testnet information](https://docs.arbitrum.io/stylus/reference/testnet-information)
 
 ```bash
-cargo stylus check --endpoint=<STYLUS_TESTNET_RPC>
+cargo stylus check
 ```
 
 If successful, you should see:
@@ -106,7 +106,6 @@ Next, we can estimate the gas costs to deploy and activate our program before we
 ```bash
 cargo stylus deploy \
   --private-key-path=<PRIVKEY_FILE_PATH> \
-  --endpoint=<STYLUS_TESTNET_RPC> \
   --estimate-gas-only
 ```
 
@@ -124,8 +123,7 @@ Here's how to deploy:
 
 ```bash
 cargo stylus deploy \
-  --private-key-path=<PRIVKEY_FILE_PATH> \
-  --endpoint=<STYLUS_TESTNET_RPC>
+  --private-key-path=<PRIVKEY_FILE_PATH>
 ```
 
 The CLI will send 2 transactions to deploy and activate your program onchain.
@@ -175,7 +173,7 @@ To run it, set the following env vars or place them in a `.env` file this projec
 ```
 STYLUS_PROGRAM_ADDRESS=<the onchain address of your deployed program>
 PRIV_KEY_PATH=<the file path for your priv key to transact with>
-RPC_URL=<the url for the Arbitrum chain backend you deployed your program to>
+RPC_URL=https://stylus-testnet.arbitrum.io/rpc
 ```
 
 Next, run:
