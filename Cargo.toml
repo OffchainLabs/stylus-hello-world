@@ -11,7 +11,7 @@ description = "Stylus hello world example"
 [dependencies]
 alloy-primitives = "0.3.1"
 alloy-sol-types = "0.3.1"
-stylus-sdk = "0.1.2"
+stylus-sdk = "0.2.0"
 hex = "0.4.3"
 wee_alloc = "0.4.5"
 
