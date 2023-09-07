@@ -3045,9 +3045,9 @@ dependencies = [
 
 [[package]]
 name = "stylus-sdk"
-version = "0.2.0"
+version = "0.2.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d721a80a9f655eceec03d840a66f1157f968878ec21ab7892e5b25441849a9b0"
+checksum = "47313955ec2761462c177614b7f2a062b4fcf54878cf88fd8bcde625a19db296"
 dependencies = [
  "alloy-primitives",
  "alloy-sol-types",
