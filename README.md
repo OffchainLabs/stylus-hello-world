@@ -168,8 +168,12 @@ let num = counter.number().call().await;
 println!("New counter number value = {:?}", num);
 ```
 
-To run it, set the following env vars or place them in a `.env` file this project, then:
+To run it, set your env vars or in a `.env` file:
+```bash
+cp .env.example .env
+```
 
+Now update `.env`:
 ```
 STYLUS_PROGRAM_ADDRESS=<the onchain address of your deployed program>
 PRIV_KEY_PATH=<the file path for your priv key to transact with>

@@ -3,6 +3,7 @@
 //! Then, it attempts to check the current counter value, increment it via a tx,
 //! and check the value again. The deployed program is fully written in Rust and compiled to WASM
 //! but with Stylus, it is accessible just as a normal Solidity smart contract is via an ABI.
+use dotenv::dotenv;
 use ethers::{
     middleware::SignerMiddleware,
     prelude::abigen,
@@ -24,7 +25,10 @@ const ENV_PROGRAM_ADDRESS: &str = "STYLUS_PROGRAM_ADDRESS";
 
 #[tokio::main]
 async fn main() -> eyre::Result<()> {
-    let priv_key_path = std::env::var(ENV_PRIV_KEY_PATH)
+    // Read env vars from .env file
+    dotenv().ok();
+
+    let priv_key_path = std::eanv::var(ENV_PRIV_KEY_PATH)
         .map_err(|_| eyre!("No {} env var set", ENV_PRIV_KEY_PATH))?;
     let rpc_url =
         std::env::var(ENV_RPC_URL).map_err(|_| eyre!("No {} env var set", ENV_RPC_URL))?;
