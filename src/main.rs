@@ -53,7 +53,6 @@ impl Counter {
     /// Increments number and updates it values in storage.
     pub fn increment(&mut self) -> Result<(), Vec<u8>> {
         let number = self.number.get();
-        self.number.set(number + U256::from(1));
-        Ok(())
+        self.set_number(number + U256::from(1))
     }
 }
