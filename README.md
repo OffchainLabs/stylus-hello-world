@@ -28,7 +28,7 @@ To set up more minimal example that still uses the Stylus SDK, use `cargo stylus
 Install [Rust](https://www.rust-lang.org/tools/install), and then install the Stylus CLI tool with Cargo
 
 ```bash
-cargo install cargo-stylus
+RUSTFLAGS="-C link-args=-rdynamic" cargo install --force cargo-stylus
 ```
 
 Add the `wasm32-unknown-unknown` build target to your Rust compiler:
