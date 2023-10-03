@@ -3,6 +3,7 @@
 //! Then, it attempts to check the current counter value, increment it via a tx,
 //! and check the value again. The deployed program is fully written in Rust and compiled to WASM
 //! but with Stylus, it is accessible just as a normal Solidity smart contract is via an ABI.
+
 use ethers::{
     middleware::SignerMiddleware,
     prelude::abigen,
@@ -15,11 +16,13 @@ use std::io::{BufRead, BufReader};
 use std::str::FromStr;
 use std::sync::Arc;
 
-// YOUR PRIVATE KEY FILE PATH.
+/// Your private key file path.
 const ENV_PRIV_KEY_PATH: &str = "PRIV_KEY_PATH";
-// RPC URL FOR A STYLUS CHAIN ENDPOINT.
+
+/// Stylus RPC endpoint url.
 const ENV_RPC_URL: &str = "RPC_URL";
-// DEPLOYED PROGRAM ADDRESS FOR STYLUS-HELLO-WORLD.
+
+/// Deployed pragram address.
 const ENV_PROGRAM_ADDRESS: &str = "STYLUS_PROGRAM_ADDRESS";
 
 #[tokio::main]
