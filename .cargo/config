@@ -2,3 +2,16 @@
 rustflags = [
   "-C", "link-arg=-zstack-size=32768",
 ]
+
+[target.aarch64-apple-darwin]
+rustflags = [
+"-C", "link-arg=-undefined",
+"-C", "link-arg=dynamic_lookup",
+]
+
+[profile.release]
+codegen-units = 1
+strip = true
+lto = true
+panic = "abort"
+opt-level = "s"
