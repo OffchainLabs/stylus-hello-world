@@ -9,6 +9,12 @@ rustflags = [
 "-C", "link-arg=dynamic_lookup",
 ]
 
+[target.x86_64-apple-darwin]
+rustflags = [
+"-C", "link-arg=-undefined",
+"-C", "link-arg=dynamic_lookup",
+]
+
 [profile.release]
 codegen-units = 1
 strip = true
