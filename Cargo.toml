@@ -11,7 +11,7 @@ description = "Stylus hello world example"
 [dependencies]
 alloy-primitives = "0.3.1"
 alloy-sol-types = "0.3.1"
-stylus-sdk = "0.4.1"
+stylus-sdk = "0.4.2"
 hex = "0.4.3"
 wee_alloc = "0.4.5"
 
@@ -22,6 +22,7 @@ eyre = "0.6.8"
 
 [features]
 export-abi = ["stylus-sdk/export-abi"]
+debug = ["stylus-sdk/debug"]
 
 [[bin]]
 name = "stylus-hello-world"
