@@ -1823,6 +1823,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6877bb514081ee2a7ff5ef9de3281f14a4dd4bceac4c09388074a6b5df8a139a"
 
 [[package]]
+name = "mini-alloc"
+version = "0.4.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bd9993556d3850cdbd0da06a3dc81297edcfa050048952d84d75e8b944e8f5af"
+dependencies = [
+ "cfg-if 1.0.0",
+ "wee_alloc",
+]
+
+[[package]]
 name = "miniz_oxide"
 version = "0.7.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2970,9 +2980,9 @@ dependencies = [
  "ethers",
  "eyre",
  "hex",
+ "mini-alloc",
  "stylus-sdk",
  "tokio",
- "wee_alloc",
 ]
 
 [[package]]
@@ -2996,9 +3006,9 @@ dependencies = [
 
 [[package]]
 name = "stylus-sdk"
-version = "0.4.1"
+version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "02b0e971622a7a27722c2e3f2658ac4795f00b12a528874c5d08863a2e91eb6e"
+checksum = "12c2d6fedbd0393e2b9f0259ca239c7ede9f87a89933627119b9dc038902d7e9"
 dependencies = [
  "alloy-primitives",
  "alloy-sol-types",
