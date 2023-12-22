@@ -19,7 +19,7 @@ extern crate alloc;
 
 /// Initializes a custom, global allocator for Rust programs compiled to WASM.
 #[global_allocator]
-static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
+static ALLOC: mini_alloc::MiniAlloc = mini_alloc::MiniAlloc::INIT;
 
 /// Import the Stylus SDK along with alloy primitive types for use in our program.
 use stylus_sdk::{alloy_primitives::U256, prelude::*};
