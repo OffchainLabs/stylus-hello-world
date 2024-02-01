@@ -17,22 +17,22 @@ use std::str::FromStr;
 use std::sync::Arc;
 
 /// Your private key file path.
-const ENV_PRIV_KEY_PATH: &str = "PRIV_KEY_PATH";
+const PRIV_KEY_PATH: &str = "PRIV_KEY_PATH";
 
 /// Stylus RPC endpoint url.
-const ENV_RPC_URL: &str = "RPC_URL";
+const RPC_URL: &str = "RPC_URL";
 
 /// Deployed pragram address.
-const ENV_PROGRAM_ADDRESS: &str = "STYLUS_PROGRAM_ADDRESS";
+const STYLUS_PROGRAM_ADDRESS: &str = "STYLUS_PROGRAM_ADDRESS";
 
 #[tokio::main]
 async fn main() -> eyre::Result<()> {
-    let priv_key_path = std::env::var(ENV_PRIV_KEY_PATH)
-        .map_err(|_| eyre!("No {} env var set", ENV_PRIV_KEY_PATH))?;
+    let priv_key_path = std::env::var(PRIV_KEY_PATH)
+        .map_err(|_| eyre!("No {} env var set", PRIV_KEY_PATH))?;
     let rpc_url =
-        std::env::var(ENV_RPC_URL).map_err(|_| eyre!("No {} env var set", ENV_RPC_URL))?;
-    let program_address = std::env::var(ENV_PROGRAM_ADDRESS)
-        .map_err(|_| eyre!("No {} env var set", ENV_PROGRAM_ADDRESS))?;
+        std::env::var(RPC_URL).map_err(|_| eyre!("No {} env var set", RPC_URL))?;
+    let program_address = std::env::var(STYLUS_PROGRAM_ADDRESS)
+        .map_err(|_| eyre!("No {} env var set", STYLUS_PROGRAM_ADDRESS))?;
     abigen!(
         Counter,
         r#"[
