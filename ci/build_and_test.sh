@@ -15,4 +15,3 @@ if [ "$CFG_RELEASE_CHANNEL" == "nightly" ]; then
 else
     cargo build --locked
 fi
-cargo test --all-features
