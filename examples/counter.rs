@@ -22,7 +22,7 @@ const PRIV_KEY_PATH: &str = "PRIV_KEY_PATH";
 /// Stylus RPC endpoint url.
 const RPC_URL: &str = "RPC_URL";
 
-/// Deployed pragram address.
+/// Deployed program address.
 const STYLUS_PROGRAM_ADDRESS: &str = "STYLUS_PROGRAM_ADDRESS";
 
 #[tokio::main]
