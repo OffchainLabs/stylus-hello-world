@@ -1,6 +1,8 @@
-//! Implements a hello-world example for Arbitrum Stylus, providing a Solidity ABI-equivalent
-//! Rust implementation of the Counter contract example provided by Foundry.
-//! Warning: this code is a template only and has not been audited.
+//!
+//! Stylus Hello World
+//!
+//! The following contract implements the Counter example from Foundry.
+//!
 //! ```
 //! contract Counter {
 //!     uint256 public number;
@@ -12,22 +14,26 @@
 //!     }
 //! }
 //! ```
+//!
+//! The program is ABI-equivalent with Solidity, which means you can call it from both Solidity and Rust.
+//! To do this, run `cargo stylus export-abi`.
+//!
+//! Note: this code is a template-only and has not been audited.
+//!
 
-// Only run this as a WASM if the export-abi feature is not set.
+// Allow `cargo stylus export-abi` to generate a main function.
 #![cfg_attr(not(feature = "export-abi"), no_main)]
 extern crate alloc;
 
-/// Initializes a custom, global allocator for Rust programs compiled to WASM.
+/// Use an efficient WASM allocator.
 #[global_allocator]
 static ALLOC: mini_alloc::MiniAlloc = mini_alloc::MiniAlloc::INIT;
 
-/// Import the Stylus SDK along with alloy primitive types for use in our program.
+/// Import items from the SDK. The prelude contains common traits and macros.
 use stylus_sdk::{alloy_primitives::U256, prelude::*};
 
-// Define the entrypoint as a Solidity storage object, in this case a struct
-// called `Counter` with a single uint256 value called `number`. The sol_storage! macro
-// will generate Rust-equivalent structs with all fields mapped to Solidity-equivalent
-// storage slots and types.
+// Define some persistent storage using the Solidity ABI.
+// `Counter` will be the entrypoint.
 sol_storage! {
     #[entrypoint]
     pub struct Counter {
@@ -35,24 +41,22 @@ sol_storage! {
     }
 }
 
-/// Define an implementation of the generated Counter struct, defining a set_number
-/// and increment method using the features of the Stylus SDK.
+/// Declare that `Counter` is a contract with the following external methods.
 #[external]
 impl Counter {
     /// Gets the number from storage.
-    pub fn number(&self) -> Result<U256, Vec<u8>> {
-        Ok(self.number.get())
+    pub fn number(&self) -> U256 {
+        self.number.get()
     }
 
     /// Sets a number in storage to a user-specified value.
-    pub fn set_number(&mut self, new_number: U256) -> Result<(), Vec<u8>> {
+    pub fn set_number(&mut self, new_number: U256) {
         self.number.set(new_number);
-        Ok(())
     }
 
-    /// Increments number and updates it values in storage.
-    pub fn increment(&mut self) -> Result<(), Vec<u8>> {
+    /// Increments `number` and updates its value in storage.
+    pub fn increment(&mut self) {
         let number = self.number.get();
-        self.set_number(number + U256::from(1))
+        self.set_number(number + U256::from(1));
     }
 }
