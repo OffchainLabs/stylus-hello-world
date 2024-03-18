@@ -23,7 +23,7 @@ contract Counter {
 
 To set up more minimal example that still uses the Stylus SDK, use `cargo stylus new --minimal <YOUR_PROJECT_NAME>` under [OffchainLabs/cargo-stylus](https://github.com/OffchainLabs/cargo-stylus).
 
-## Quick Start 
+## Quick Start
 
 Install [Rust](https://www.rust-lang.org/tools/install), and then install the Stylus CLI tool with Cargo
 
@@ -142,6 +142,15 @@ Confirmed tx 0x0bdb…3307, gas used 14044638
 
 Once both steps are successful, you can interact with your program as you would with any Ethereum smart contract.
 
+## Deploying (alternative, with `scripts`)
+
+You can instead opt-in to using `cargo stylus script` and run the included `deploy` script at [`./scripts/deploy/`](./scripts/deploy/).
+
+This can be done either by manually `cd`-ing and running `cargo run`, or by running `cargo stylus script run deploy` from anywhere in the repository.
+
+> [!NOTE]
+> This requires you to setup the credentials for `TESTNET`, see [`./.env.example`](./.env.example)
+
 ## Calling Your Program
 
 This template includes an example of how to call and transact with your program in Rust using [ethers-rs](https://github.com/gakonst/ethers-rs) under the `examples/counter.rs`. However, your programs are also Ethereum ABI equivalent if using the Stylus SDK. **They can be called and transacted with using any other Ethereum tooling.**
@@ -183,6 +192,15 @@ cargo run --example counter --target=<YOUR_ARCHITECTURE>
 ```
 
 Where you can find `YOUR_ARCHITECTURE` by running `rustc -vV | grep host`. For M1 Apple computers, for example, this is `aarch64-apple-darwin` and for most Linux x86 it is `x86_64-unknown-linux-gnu`
+
+## Calling Your Program (alternative, with `scripts`)
+
+Again, you can instead opt-in to using `cargo stylus script` and run the included `deploy` script at [`./scripts/deploy/`](./scripts/deploy/).
+
+This can be done either by manually `cd`-ing and running `cargo run`, or by running `cargo stylus script run interact` from anywhere in the repository.
+
+> [!NOTE]
+> Again, this requires you to setup the credentials for `TESTNET`, together with the already deployed program's address, see [`./.env.example`](./.env.example)
 
 ## Build Options
 
