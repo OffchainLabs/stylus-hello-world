@@ -8,5 +8,5 @@
 /scripts/target
 
 # Secrets
-/secrets
+/secrets/*
 !/secrets/.keep
