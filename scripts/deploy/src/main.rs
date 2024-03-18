@@ -8,7 +8,7 @@ use ethers::{
 use eyre::{bail, eyre, OptionExt};
 
 use cargo_stylus::{CheckConfig, DeployConfig, KeystoreOpts, TxSendingOpts};
-use common::{load_env_for, move_to_project_root, NetworkConfig};
+use common::{load_env_for, move_to_parent_project_root, NetworkConfig};
 
 #[tokio::main]
 async fn main() -> eyre::Result<()> {
@@ -55,7 +55,7 @@ async fn main() -> eyre::Result<()> {
     };
 
     // NOTE: `cargo_stylus::deploy::deploy` uses cwd
-    move_to_project_root()?;
+    move_to_parent_project_root()?;
     cargo_stylus::deploy::deploy(cfg).await?;
 
     Ok(())

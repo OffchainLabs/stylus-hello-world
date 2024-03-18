@@ -57,12 +57,10 @@ pub async fn load_env_for(network: &str) -> Result<NetworkConfig> {
             .ok_or_eyre(format!("No PRIV_KEY_PATH env var set for network {}", network))?
             .into();
 
-        let project_root = find_project_root()?;
+        let project_root = find_parent_project_root(None)?;
 
         make_absolute_relative_to(priv_key_path, project_root)?
     };
-
-    dbg!(&priv_key_path.display());
 
     // Pull out RPC_URL
     #[rustfmt::skip]
@@ -97,22 +95,19 @@ pub fn read_secret_from_file(fpath: impl AsRef<Path>) -> eyre::Result<String> {
     Ok(secret.trim().to_string())
 }
 
-pub fn find_project_root() -> Result<PathBuf> {
-    //  NOTE: start searching for `Cargo.toml` one directory up
-    //        to avoid finding the script's `Cargo.toml`
-    let parent_dir = env::current_dir()?
-        .parent()
-        .ok_or_eyre("No parent")?
-        .to_path_buf();
-    cargo_stylus::util::discover_project_root_from_path(parent_dir)?
-        .ok_or_eyre("Could not find Cargo.toml")
+pub fn find_parent_project_root(start_from: Option<PathBuf>) -> Result<PathBuf> {
+    let start_from = start_from.unwrap_or(env::current_dir()?);
+
+    //  NOTE: search upwards for `.git`
+    cargo_stylus::util::discover_project_root_from_path(start_from)?
+        .ok_or_eyre("Could not find project root")
 }
 
-pub fn move_to_project_root() -> Result<()> {
-    let project_root = &find_project_root()?;
+pub fn move_to_parent_project_root() -> Result<()> {
+    let parent_project_root = &find_parent_project_root(None)?;
 
-    env::set_current_dir(project_root)?;
-    println!("Set cwd to {}", project_root.display());
+    env::set_current_dir(parent_project_root)?;
+    println!("Set cwd to {}", parent_project_root.display());
 
     Ok(())
 }
