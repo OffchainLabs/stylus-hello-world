@@ -28,15 +28,15 @@ const PRIV_KEY_PATH: &str = "PRIV_KEY_PATH";
 const RPC_URL: &str = "RPC_URL";
 
 #[derive(Debug)]
-pub struct NetworkConfig {
+pub struct Config {
     pub priv_key_path: PathBuf,
     pub rpc_url: String,
     pub wallet: Wallet<SigningKey>,
     pub client: Arc<SignerMiddleware<Provider<Http>, Wallet<SigningKey>>>,
-    pub rest: BTreeMap<String, String>,
+    pub env: BTreeMap<String, String>,
 }
 
-pub async fn load_env_for(network: &str) -> Result<NetworkConfig> {
+pub async fn load_env_for(network: &str) -> Result<Config> {
     // Calculate common prefix for given network
     let prefix = format!("{}_", network.to_uppercase());
 
@@ -77,12 +77,12 @@ pub async fn load_env_for(network: &str) -> Result<NetworkConfig> {
         wallet.clone().with_chain_id(chain_id),
     ));
 
-    Ok(NetworkConfig {
+    Ok(Config {
         priv_key_path,
         rpc_url,
         wallet,
         client,
-        rest: vars,
+        env: vars,
     })
 }
 

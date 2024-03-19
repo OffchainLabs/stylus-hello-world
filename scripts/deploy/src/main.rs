@@ -8,17 +8,17 @@ use ethers::{
 use eyre::{bail, eyre, OptionExt};
 
 use cargo_stylus::{CheckConfig, DeployConfig, KeystoreOpts, TxSendingOpts};
-use common::{load_env_for, move_to_parent_project_root, NetworkConfig};
+use common::{load_env_for, move_to_parent_project_root, Config};
 
 #[tokio::main]
 async fn main() -> eyre::Result<()> {
     // Load config
-    let NetworkConfig {
+    let Config {
         priv_key_path,
         rpc_url,
         wallet,
         client,
-        rest: _,
+        env: _,
     } = load_env_for("TESTNET").await?;
 
     // Deploy and activate contract

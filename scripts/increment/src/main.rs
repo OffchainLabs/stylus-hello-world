@@ -12,7 +12,7 @@ use ethers::{
 };
 use eyre::{bail, eyre, OptionExt};
 
-use common::{load_env_for, NetworkConfig};
+use common::{load_env_for, Config};
 
 /// Deployed pragram address.
 const STYLUS_PROGRAM_ADDRESS: &str = "STYLUS_PROGRAM_ADDRESS";
@@ -20,12 +20,12 @@ const STYLUS_PROGRAM_ADDRESS: &str = "STYLUS_PROGRAM_ADDRESS";
 #[tokio::main]
 async fn main() -> eyre::Result<()> {
     // Load config
-    let NetworkConfig {
+    let Config {
         priv_key_path: _,
         rpc_url: _,
         wallet: _,
         client,
-        rest,
+        env,
     } = load_env_for("TESTNET").await?;
 
     // Generate type from parent contract ABI
@@ -34,7 +34,7 @@ async fn main() -> eyre::Result<()> {
 
     // Get and parse STYLUS_PROGRAM_ADDRESS (from the extra envvars for selected network)
     // NOTE: need to manually put that in `.env` after deployment
-    let program_address: Address = rest
+    let program_address: Address = env
         .get(STYLUS_PROGRAM_ADDRESS)
         .ok_or_eyre("Missing STYLUS_PROGRAM_ADDRESS for selected network")?
         .parse()?;
