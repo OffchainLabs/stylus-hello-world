@@ -1097,6 +1097,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "deploy_and_increment"
+version = "0.1.5"
+dependencies = [
+ "alloy-primitives 0.3.3",
+ "alloy-sol-types",
+ "cargo-stylus",
+ "common",
+ "ethers",
+ "eyre",
+ "hex",
+ "mini-alloc",
+ "stylus-sdk",
+ "tokio",
+]
+
+[[package]]
 name = "der"
 version = "0.7.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"

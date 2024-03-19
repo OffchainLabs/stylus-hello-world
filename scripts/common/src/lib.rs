@@ -2,7 +2,7 @@ use ethers::{
     core::k256::ecdsa::SigningKey,
     middleware::SignerMiddleware,
     providers::{Http, Middleware, Provider},
-    signers::{LocalWallet, Signer, Wallet},
+    signers::{LocalWallet, Signer, Wallet}, types::Address,
 };
 use eyre::{bail, eyre, Context, OptionExt, Result};
 
@@ -94,7 +94,7 @@ pub async fn load_network_config_for(network: &str) -> Result<NetworkConfig> {
     stylus_config
         .networks
         // NOTE: `.remove`-ing instead of `.get`-ing to avoid `.clone()`-ing later
-        .remove(network)
+        .remove(&network.to_lowercase())
         .ok_or_eyre(format!("No configuration for network {}", network))
 }
 
@@ -163,7 +163,7 @@ pub fn make_absolute_relative_to(
         .wrap_err(format!("Could not canonicalize {}", path.display()))
 }
 
-pub async fn deploy_on(network: &str) -> Result<()> {
+pub async fn deploy_on(network: &str) -> Result<Address> {
     let NetworkConfig {
         rpc_url,
         private_key_source,
@@ -218,7 +218,7 @@ pub async fn deploy_on(network: &str) -> Result<()> {
     move_to_parent_project_root()?;
     cargo_stylus::deploy::deploy(cfg).await?;
 
-    Ok(())
+    Ok(expected_program_address)
 }
 
 #[cfg(test)]

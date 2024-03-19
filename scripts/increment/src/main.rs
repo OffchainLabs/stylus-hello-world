@@ -36,7 +36,7 @@ async fn main() -> eyre::Result<()> {
         .ok_or_eyre("Missing STYLUS_PROGRAM_ADDRESS for selected network")?
         .parse()?;
 
-    println!("Program from at {:x}", program_address);
+    println!("Program at {:x}", program_address);
 
     // Construct and interact with contract
     let counter = Counter::new(program_address, client);

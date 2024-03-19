@@ -1,11 +1,11 @@
 [networks.mainnet]
-private_key_path = "./secrets/testnet_private_key"
+private_key = "INSERT_PRIVATE_KEY_HERE"
 rpc_url = "https://arb1.arbitrum.io/rpc"
 # NOTE: Fill after deployment
 # stylus_program_address = ""
 
 [networks.testnet]
-private_key = "INSERT_PRIVATE_KEY_HERE"
+private_key_path = "./secrets/testnet_private_key"
 rpc_url = "https://stylus-testnet.arbitrum.io/rpc"
 # NOTE: Fill after deployment
 # stylus_program_address = ""
