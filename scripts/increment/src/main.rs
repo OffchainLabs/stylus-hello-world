@@ -12,7 +12,7 @@ use ethers::{
 };
 use eyre::{bail, eyre, OptionExt};
 
-use common::{load_env_for, Config};
+use common::{self, Config};
 
 /// Deployed pragram address.
 const STYLUS_PROGRAM_ADDRESS: &str = "STYLUS_PROGRAM_ADDRESS";
@@ -21,20 +21,17 @@ const STYLUS_PROGRAM_ADDRESS: &str = "STYLUS_PROGRAM_ADDRESS";
 async fn main() -> eyre::Result<()> {
     // Load config
     let Config {
-        priv_key_path: _,
-        rpc_url: _,
-        wallet: _,
         client,
-        env,
-    } = load_env_for("TESTNET").await?;
+        additional_variables,
+    } = common::load_config_for("TESTNET").await?;
 
     // Generate type from parent contract ABI
     // NOTE: need to run `cargo stylus export-abi --json --output target/abi.json` beforehand
     abigen!(Counter, "../../target/abi.json");
 
     // Get and parse STYLUS_PROGRAM_ADDRESS (from the extra envvars for selected network)
-    // NOTE: need to manually put that in `.env` after deployment
-    let program_address: Address = env
+    // NOTE: need to manually put that in `Stylus.toml` after deployment
+    let program_address: Address = additional_variables
         .get(STYLUS_PROGRAM_ADDRESS)
         .ok_or_eyre("Missing STYLUS_PROGRAM_ADDRESS for selected network")?
         .parse()?;

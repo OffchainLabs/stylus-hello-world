@@ -1,76 +1,115 @@
-#![allow(unused_imports)]
-
-use dotenvy::{dotenv, dotenv_iter};
 use ethers::{
     core::k256::ecdsa::SigningKey,
     middleware::SignerMiddleware,
-    prelude::abigen,
-    providers::{self, Http, Middleware, Provider},
+    providers::{Http, Middleware, Provider},
     signers::{LocalWallet, Signer, Wallet},
-    types::Address,
-    utils::get_contract_address,
 };
 use eyre::{bail, eyre, Context, OptionExt, Result};
 
 use cargo_stylus::{CheckConfig, DeployConfig, KeystoreOpts, TxSendingOpts};
+use serde::Deserialize;
+use tokio::fs;
 
-use std::{collections::BTreeMap, sync::Arc};
-use std::{env, path::Path, str::FromStr};
 use std::{
+    collections::BTreeMap,
+    env,
     io::{BufRead, BufReader},
+    path::Path,
     path::PathBuf,
+    str::FromStr,
+    sync::Arc,
 };
 
-/// Your private key file path
-const PRIV_KEY_PATH: &str = "PRIV_KEY_PATH";
+const STYLUS_CONFIG_FILENAME: &str = "Stylus.toml";
 
-/// Stylus RPC endpoint url.
-const RPC_URL: &str = "RPC_URL";
+#[derive(Debug, Deserialize)]
+pub enum PrivateKeySource {
+    /// Private key literal
+    #[serde(rename = "private_key")]
+    Literal(String),
+
+    /// Path to a private key, can be relative
+    #[serde(rename = "private_key_path")]
+    FilePath(String),
+}
+
+impl PrivateKeySource {
+    pub fn load(self) -> Result<String> {
+        let project_root = find_parent_project_root(None)?;
+
+        Ok(match self {
+            PrivateKeySource::Literal(private_key) => private_key,
+            PrivateKeySource::FilePath(private_key_path) => {
+                let pk_path = make_absolute_relative_to(private_key_path, project_root)?;
+                read_secret_from_file(pk_path)?
+            }
+        })
+    }
+}
+
+#[derive(Debug, Deserialize)]
+pub struct NetworkConfig {
+    /// RPC URL
+    pub rpc_url: String,
+
+    /// Private key or path to one
+    #[serde(flatten)]
+    pub private_key_source: PrivateKeySource,
+
+    /// Additional variables
+    #[serde(flatten)]
+    pub additional_variables: BTreeMap<String, String>,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct StylusConfig {
+    /// Networks' configs
+    pub networks: BTreeMap<String, NetworkConfig>,
+}
 
 #[derive(Debug)]
 pub struct Config {
-    pub priv_key_path: PathBuf,
-    pub rpc_url: String,
-    pub wallet: Wallet<SigningKey>,
     pub client: Arc<SignerMiddleware<Provider<Http>, Wallet<SigningKey>>>,
-    pub env: BTreeMap<String, String>,
+    pub additional_variables: BTreeMap<String, String>,
 }
 
-pub async fn load_env_for(network: &str) -> Result<Config> {
-    // Calculate common prefix for given network
-    let prefix = format!("{}_", network.to_uppercase());
+pub async fn load_stylus_config() -> Result<StylusConfig> {
+    let project_root = find_parent_project_root(None)?;
+    let stylus_config_path = project_root.join(STYLUS_CONFIG_FILENAME);
+    if !fs::try_exists(&stylus_config_path).await? {
+        bail!(
+            "{} not found at {}",
+            STYLUS_CONFIG_FILENAME,
+            project_root.display()
+        );
+    }
+    let stylus_config_str = fs::read_to_string(&stylus_config_path).await?;
+    Ok(toml::from_str(&stylus_config_str)?)
+}
 
-    // Collect this network's envvar pairs from .env
-    let mut vars = dotenv_iter()?
-        .collect::<Result<Vec<(_, _)>, _>>()?
-        .into_iter()
-        .filter_map(|(k, v)| {
-            k.strip_prefix(&prefix)
-                .map(|k_base| (k_base.to_string(), v))
-        })
-        .collect::<BTreeMap<_, _>>();
+pub async fn load_network_config_for(network: &str) -> Result<NetworkConfig> {
+    let mut stylus_config: StylusConfig = load_stylus_config().await?;
 
-    // Pull out PRIV_KEY_PATH
-    #[rustfmt::skip]
-    let priv_key_path: PathBuf = {
-         let priv_key_path =  vars.remove(PRIV_KEY_PATH)
-            .ok_or_eyre(format!("No PRIV_KEY_PATH env var set for network {}", network))?
-            .into();
+    stylus_config
+        .networks
+        // NOTE: `.remove`-ing instead of `.get`-ing to avoid `.clone()`-ing later
+        .remove(network)
+        .ok_or_eyre(format!("No configuration for network {}", network))
+}
 
-        let project_root = find_parent_project_root(None)?;
+pub async fn load_config_for(network: &str) -> Result<Config> {
+    let NetworkConfig {
+        rpc_url,
+        private_key_source,
+        additional_variables,
+    } = load_network_config_for(network).await?;
 
-        make_absolute_relative_to(priv_key_path, project_root)?
-    };
-
-    // Pull out RPC_URL
-    #[rustfmt::skip]
-    let rpc_url: String = vars.remove(RPC_URL)
-        .ok_or_eyre(format!("No RPC_URL env var set for network {}", network))?;
+    let private_key = private_key_source.load()?;
 
     // Prepare client
     let provider = Provider::<Http>::try_from(rpc_url.clone())?;
-    let privkey = read_secret_from_file(&priv_key_path)?;
-    let wallet = LocalWallet::from_str(&privkey)?;
+    let wallet = LocalWallet::from_str(&private_key)?;
     let chain_id = provider.get_chainid().await?.as_u64();
     let client = Arc::new(SignerMiddleware::new(
         provider,
@@ -78,11 +117,8 @@ pub async fn load_env_for(network: &str) -> Result<Config> {
     ));
 
     Ok(Config {
-        priv_key_path,
-        rpc_url,
-        wallet,
         client,
-        env: vars,
+        additional_variables,
     })
 }
 
@@ -112,7 +148,13 @@ pub fn move_to_parent_project_root() -> Result<()> {
     Ok(())
 }
 
-pub fn make_absolute_relative_to(mut path: PathBuf, relative_to: PathBuf) -> Result<PathBuf> {
+pub fn make_absolute_relative_to(
+    path: impl AsRef<Path>,
+    relative_to: impl AsRef<Path>,
+) -> Result<PathBuf> {
+    let mut path: PathBuf = path.as_ref().to_path_buf();
+    let relative_to = relative_to.as_ref();
+
     if !path.is_absolute() {
         path = relative_to.join(path);
     }
@@ -121,13 +163,71 @@ pub fn make_absolute_relative_to(mut path: PathBuf, relative_to: PathBuf) -> Res
         .wrap_err(format!("Could not canonicalize {}", path.display()))
 }
 
+pub async fn deploy_on(network: &str) -> Result<()> {
+    let NetworkConfig {
+        rpc_url,
+        private_key_source,
+        additional_variables: _,
+    } = load_network_config_for(network).await?;
+
+    let private_key = private_key_source.load()?;
+
+    // Prepare client
+    let provider = Provider::<Http>::try_from(rpc_url.clone())?;
+    let wallet = LocalWallet::from_str(&private_key)?;
+    let chain_id = provider.get_chainid().await?.as_u64();
+    let client = Arc::new(SignerMiddleware::new(
+        provider,
+        wallet.clone().with_chain_id(chain_id),
+    ));
+
+    // Deploy and activate contract
+    let addr = wallet.address();
+    let nonce = client
+        .get_transaction_count(addr, None)
+        .await
+        .map_err(|e| eyre!("could not get nonce for address {addr}: {e}"))?;
+
+    let expected_program_address = ethers::utils::get_contract_address(wallet.address(), nonce);
+
+    // NOTE: reusing `cargo_stylus::deploy::deploy`'s CLI arguments
+    let cfg = DeployConfig {
+        check_cfg: CheckConfig {
+            endpoint: rpc_url,
+            wasm_file_path: None,
+            expected_program_address,
+            private_key_path: None,
+            private_key: Some(private_key),
+            keystore_opts: KeystoreOpts {
+                keystore_path: None,
+                keystore_password_path: None,
+            },
+            nightly: false,
+            skip_contract_size_check: false,
+        },
+        estimate_gas_only: false,
+        mode: None,
+        activate_program_address: None,
+        tx_sending_opts: TxSendingOpts {
+            dry_run: false,
+            output_tx_data_to_dir: None,
+        },
+    };
+
+    // NOTE: `cargo_stylus::deploy::deploy` uses cwd
+    move_to_parent_project_root()?;
+    cargo_stylus::deploy::deploy(cfg).await?;
+
+    Ok(())
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[tokio::test]
     async fn testnet_env_loads() {
-        let config = load_env_for("testnet").await.unwrap();
+        let config = load_config_for("testnet").await.unwrap();
         println!("{:?}", config);
     }
 }
