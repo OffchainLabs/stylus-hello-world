@@ -3,6 +3,3 @@ run: build
 
 build:
 	cargo build
-
-love:
-	@echo "not war"

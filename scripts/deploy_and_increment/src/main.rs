@@ -8,21 +8,28 @@ use eyre::{bail, eyre, OptionExt};
 
 use common::{self, Config};
 
+const INCREMENT_NUMBER_KEY: &str = "increment_number";
+
 #[tokio::main]
 async fn main() -> eyre::Result<()> {
     // Load config
     let Config {
         client,
-        additional_variables: _,
+        additional_variables,
     } = common::load_config_for("TESTNET").await?;
+
+    let number = additional_variables
+        .get(INCREMENT_NUMBER_KEY)
+        .ok_or_eyre("Missing INCREMENT_NUMBER for selected network")?
+        .parse::<i32>()?;
 
     // Generate type from parent contract ABI
     // NOTE: need to run `cargo stylus export-abi --json --output target/abi.json` beforehand
     abigen!(Counter, "../../target/abi.json");
 
-    // Deploy program and get its adress
+    // Deploy program and get its address
     let program_address = common::deploy_on("TESTNET").await?;
-    println!("Program at {:x}", program_address);
+    println!("Program deployed at {:x}", program_address);
 
     // Construct and interact with the contract
     let counter = Counter::new(program_address, client);
@@ -30,7 +37,7 @@ async fn main() -> eyre::Result<()> {
     let num = counter.number().call().await;
     println!("Counter number value = {:?}", num,);
 
-    let _ = counter.increment().send().await?.await?;
+    counter.set_number(number.into()).send().await?.await?;
     println!("Successfully incremented counter via a tx");
 
     let num = counter.number().call().await;

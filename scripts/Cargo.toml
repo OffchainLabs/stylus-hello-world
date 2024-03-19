@@ -1,7 +1,5 @@
 [workspace]
 members = [
     "common",
-    "deploy",
-    "increment",
     "deploy_and_increment",
 ]
