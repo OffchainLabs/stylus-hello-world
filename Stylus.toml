@@ -2,9 +2,10 @@
 
 [networks.testnet]
 private_key = ""
-# Alternatively, you can pass a relative path to your PK
+# Alternatively, you can pass a (absolute or relative) path to your PK
 # private_key_path = "./secrets/pk"
 rpc_url = "https://stylus-testnet.arbitrum.io/rpc"
+# You can specify as many extra variables as you want, they are also brought in
 increment_number = "4"
 
 [networks.mainnet]

@@ -4,20 +4,21 @@ use ethers::{
     prelude::abigen,
     types::Address,
 };
-use eyre::{bail, eyre, OptionExt};
+use eyre::{bail, eyre, Result, OptionExt};
 
 use common::{self, Config};
 
 const INCREMENT_NUMBER_KEY: &str = "increment_number";
 
 #[tokio::main]
-async fn main() -> eyre::Result<()> {
+async fn main() -> Result<()> {
     // Load config
     let Config {
         client,
         additional_variables,
     } = common::load_config_for("TESTNET").await?;
 
+    // Extract `increment_number` from the additional variables in `Stylus.toml`
     let number = additional_variables
         .get(INCREMENT_NUMBER_KEY)
         .ok_or_eyre("Missing INCREMENT_NUMBER for selected network")?
