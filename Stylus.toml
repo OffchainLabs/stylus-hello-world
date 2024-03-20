@@ -1,11 +1,14 @@
-[networks.mainnet]
-private_key = "INSERT_PRIVATE_KEY_HERE"
-rpc_url = "https://arb1.arbitrum.io/rpc"
-# NOTE: Fill after deployment
-# stylus_program_address = ""
+# Configuration file used by Stylus scripts
 
 [networks.testnet]
-private_key_path = "./secrets/testnet_private_key"
+private_key = ""
+# Alternatively, you can pass a (absolute or relative) path to your PK
+# private_key_path = "./secrets/pk"
 rpc_url = "https://stylus-testnet.arbitrum.io/rpc"
-# NOTE: Fill after deployment
-# stylus_program_address = ""
+# You can specify as many extra variables as you want, they are also brought in
+increment_number = "4"
+
+[networks.mainnet]
+private_key = ""
+# private_key_path = ""
+rpc_url = "https://arb1.arbitrum.io/rpc"

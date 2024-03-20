@@ -1081,22 +1081,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7e962a19be5cfc3f3bf6dd8f61eb50107f356ad6270fbb3ed41476571db78be5"
 
 [[package]]
-name = "deploy"
-version = "0.1.5"
-dependencies = [
- "alloy-primitives 0.3.3",
- "alloy-sol-types",
- "cargo-stylus",
- "common",
- "ethers",
- "eyre",
- "hex",
- "mini-alloc",
- "stylus-sdk",
- "tokio",
-]
-
-[[package]]
 name = "deploy_and_increment"
 version = "0.1.5"
 dependencies = [
@@ -2195,22 +2179,6 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn 1.0.109",
-]
-
-[[package]]
-name = "increment"
-version = "0.1.5"
-dependencies = [
- "alloy-primitives 0.3.3",
- "alloy-sol-types",
- "cargo-stylus",
- "common",
- "ethers",
- "eyre",
- "hex",
- "mini-alloc",
- "stylus-sdk",
- "tokio",
 ]
 
 [[package]]

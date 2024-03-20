@@ -6,7 +6,3 @@
 
 # Scripts artifacts
 /scripts/target
-
-# Secrets
-/secrets/*
-!/secrets/.keep
