@@ -142,14 +142,14 @@ Confirmed tx 0x0bdb…3307, gas used 14044638
 
 Once both steps are successful, you can interact with your program as you would with any Ethereum smart contract.
 
-## Deploying (alternative, with `scripts`)
+## Deploying + Calling (alternative, with `scripts`)
 
 You can instead opt-in to using `cargo stylus script` and run the included `deploy` script at [`./scripts/deploy/`](./scripts/deploy/).
 
 This can be done either by manually `cd`-ing and running `cargo run`, or by running `cargo stylus script run deploy` from anywhere in the repository.
 
 > [!NOTE]
-> This requires you to setup the credentials for `TESTNET`, see [`./.env.example`](./.env.example)
+> This requires you to setup the credentials for `TESTNET`, see [`./Stylus.toml`](./Stylus.toml)
 
 ## Calling Your Program
 
@@ -193,15 +193,14 @@ cargo run --example counter --target=<YOUR_ARCHITECTURE>
 
 Where you can find `YOUR_ARCHITECTURE` by running `rustc -vV | grep host`. For M1 Apple computers, for example, this is `aarch64-apple-darwin` and for most Linux x86 it is `x86_64-unknown-linux-gnu`
 
-## Calling Your Program (alternative, with `scripts`)
+## Deploying + Calling (alternative, with `scripts`)
 
-Again, you can instead opt-in to using `cargo stylus script` and run the included `deploy` script at [`./scripts/deploy/`](./scripts/deploy/).
+You can instead opt-in to using `cargo stylus script` and run the included `deploy_and_increment` script at [`./scripts/deploy_and_increment/`](./scripts/deploy_and_increment/).
 
-This can be done either by manually `cd`-ing and running `cargo run`, or by running `cargo stylus script run interact` from anywhere in the repository.
+This can be done either by manually `cd`-ing and running `cargo run`, or by running `cargo stylus script run deploy_and_increment` from anywhere in the repository.
 
 > [!NOTE]
-> Again, this requires you to setup the credentials for `TESTNET`, together with the already deployed program's address, see [`./.env.example`](./.env.example)
-
+> This requires you to setup the credentials for `TESTNET`, see [`./Stylus.toml`](./Stylus.toml)
 ## Build Options
 
 By default, the cargo stylus tool will build your project for WASM using sensible optimizations, but you can control how this gets compiled by seeing the full README for [cargo stylus](https://github.com/OffchainLabs/cargo-stylus). If you wish to optimize the size of your compiled WASM, see the different options available [here](https://github.com/OffchainLabs/cargo-stylus/blob/main/OPTIMIZING_BINARIES.md).
