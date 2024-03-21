@@ -33,7 +33,7 @@ RUSTFLAGS="-C link-args=-rdynamic" cargo install --force cargo-stylus
 
 Add the `wasm32-unknown-unknown` build target to your Rust compiler:
 
-```
+```bash
 rustup target add wasm32-unknown-unknown
 ```
 
@@ -45,7 +45,7 @@ cargo stylus --help
 
 Then, clone the template:
 
-```
+```bash
 git clone https://github.com/OffchainLabs/stylus-hello-world && cd stylus-hello-world
 ```
 
