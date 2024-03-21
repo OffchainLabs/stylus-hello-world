@@ -90,7 +90,7 @@ pub async fn load_stylus_config() -> Result<StylusConfig> {
     Ok(toml::from_str(&stylus_config_str)?)
 }
 
-/// Load a concrete network's bare config
+/// Load a specific network's bare config
 /// from the Stylus config of the current Stylus project
 pub async fn load_network_config_for(network: &str) -> Result<NetworkConfig> {
     let mut stylus_config: StylusConfig = load_stylus_config().await?;
