@@ -2,7 +2,8 @@ use ethers::{
     core::k256::ecdsa::SigningKey,
     middleware::SignerMiddleware,
     providers::{Http, Middleware, Provider},
-    signers::{LocalWallet, Signer, Wallet}, types::Address,
+    signers::{LocalWallet, Signer, Wallet},
+    types::Address,
 };
 use eyre::{bail, eyre, Context, OptionExt, Result};
 
@@ -41,7 +42,7 @@ impl PrivateKeySource {
             PrivateKeySource::Literal(private_key) => private_key,
             PrivateKeySource::FilePath(private_key_path) => {
                 let pk_path = make_absolute_relative_to(private_key_path, project_root)?;
-                read_secret_from_file(pk_path)?
+                read_and_trim_line_from_file(pk_path)?
             }
         })
     }
@@ -74,6 +75,7 @@ pub struct Config {
     pub additional_variables: BTreeMap<String, String>,
 }
 
+/// Load bare Stylus config from `Stylus.toml` of the current Stylus project
 pub async fn load_stylus_config() -> Result<StylusConfig> {
     let project_root = find_parent_project_root(None)?;
     let stylus_config_path = project_root.join(STYLUS_CONFIG_FILENAME);
@@ -88,6 +90,8 @@ pub async fn load_stylus_config() -> Result<StylusConfig> {
     Ok(toml::from_str(&stylus_config_str)?)
 }
 
+/// Load a concrete network's bare config
+/// from the Stylus config of the current Stylus project
 pub async fn load_network_config_for(network: &str) -> Result<NetworkConfig> {
     let mut stylus_config: StylusConfig = load_stylus_config().await?;
 
@@ -98,6 +102,7 @@ pub async fn load_network_config_for(network: &str) -> Result<NetworkConfig> {
         .ok_or_eyre(format!("No configuration for network {}", network))
 }
 
+/// Load and prepare the ready-to-use config for a given network
 pub async fn load_config_for(network: &str) -> Result<Config> {
     let NetworkConfig {
         rpc_url,
@@ -123,7 +128,7 @@ pub async fn load_config_for(network: &str) -> Result<Config> {
 }
 
 /// Reads and trims a line from a filepath
-pub fn read_secret_from_file(fpath: impl AsRef<Path>) -> eyre::Result<String> {
+pub fn read_and_trim_line_from_file(fpath: impl AsRef<Path>) -> eyre::Result<String> {
     let f = std::fs::File::open(fpath)?;
     let mut buf_reader = BufReader::new(f);
     let mut secret = String::new();
@@ -131,6 +136,8 @@ pub fn read_secret_from_file(fpath: impl AsRef<Path>) -> eyre::Result<String> {
     Ok(secret.trim().to_string())
 }
 
+/// Find and return the Stylus project root (characterized by `.git`),
+/// relative to cwd or a given directory
 pub fn find_parent_project_root(start_from: Option<PathBuf>) -> Result<PathBuf> {
     let start_from = start_from.unwrap_or(env::current_dir()?);
 
@@ -139,6 +146,7 @@ pub fn find_parent_project_root(start_from: Option<PathBuf>) -> Result<PathBuf> 
         .ok_or_eyre("Could not find project root")
 }
 
+/// Set cwd to the current Stylus project root
 pub fn move_to_parent_project_root() -> Result<()> {
     let parent_project_root = &find_parent_project_root(None)?;
 
@@ -148,6 +156,8 @@ pub fn move_to_parent_project_root() -> Result<()> {
     Ok(())
 }
 
+/// Convert (maybe) relative paths to absolute ones,
+/// relative to another path
 pub fn make_absolute_relative_to(
     path: impl AsRef<Path>,
     relative_to: impl AsRef<Path>,
@@ -163,7 +173,9 @@ pub fn make_absolute_relative_to(
         .wrap_err(format!("Could not canonicalize {}", path.display()))
 }
 
-pub async fn deploy_on(network: &str) -> Result<Address> {
+/// Helper function, wrapping `cargo_stylus::deploy::deploy`,
+/// used to deploy the main contract of the current Stylus project
+pub async fn deploy(network: &str) -> Result<Address> {
     let NetworkConfig {
         rpc_url,
         private_key_source,

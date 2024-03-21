@@ -142,11 +142,11 @@ Confirmed tx 0x0bdb…3307, gas used 14044638
 
 Once both steps are successful, you can interact with your program as you would with any Ethereum smart contract.
 
-## Deploying + Calling (alternative, with `scripts`)
+## Deploying + Interacting with `scripts`
 
 You can instead opt-in to using `cargo stylus script` and run the included `deploy_and_increment` script at [`./scripts/deploy_and_increment/`](./scripts/deploy_and_increment/).
 
-This can be done either by manually `cd`-ing and running `cargo run`, or by running `cargo stylus script run deploy_and_increment` from anywhere in the repository.
+This can be done either by manually `cd`-ing into `./scripts/deploy_and_increment/` and running `cargo run`, or by running `cargo stylus script run deploy_and_increment` from anywhere in the repository.
 
 > [!NOTE]
 > This requires you to setup the credentials for `TESTNET`, see [`./Stylus.toml`](./Stylus.toml)

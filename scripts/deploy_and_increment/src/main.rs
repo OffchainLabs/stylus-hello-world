@@ -29,7 +29,7 @@ async fn main() -> Result<()> {
     abigen!(Counter, "../../target/abi.json");
 
     // Deploy program and get its address
-    let program_address = common::deploy_on("TESTNET").await?;
+    let program_address = common::deploy("TESTNET").await?;
     println!("Program deployed at {:x}", program_address);
 
     // Construct and interact with the contract
