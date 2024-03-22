@@ -6,7 +6,7 @@ use ethers::{
 };
 use eyre::{bail, eyre, Result, OptionExt};
 
-use common::{self, Config};
+use cargo_stylus::common::{self, Config};
 
 const INCREMENT_NUMBER_KEY: &str = "increment_number";
 
