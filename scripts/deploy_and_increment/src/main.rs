@@ -46,3 +46,14 @@ async fn main() -> Result<()> {
 
     Ok(())
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[tokio::test]
+    async fn testnet_env_loads() {
+        let config = common::load_config_for("testnet").await.unwrap();
+        println!("{:?}", config);
+    }
+}
