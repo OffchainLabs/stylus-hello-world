@@ -598,7 +598,7 @@ dependencies = [
 [[package]]
 name = "cargo-stylus"
 version = "0.2.1"
-source = "git+https://github.com/LimeChain/cargo-stylus?branch=LimeChain/stylus-script-common-extraction#08c89581c4030f1540283890df5f471c961e63a3"
+source = "git+https://github.com/LimeChain/cargo-stylus?branch=LimeChain/stylus-script#023b708e2dcf9b3801d050ca6690fbd25f9cf7f0"
 dependencies = [
  "alloy-json-abi",
  "alloy-primitives 0.4.2",
