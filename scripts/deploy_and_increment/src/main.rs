@@ -6,7 +6,7 @@ use ethers::{
 };
 use eyre::{bail, eyre, Result, OptionExt};
 
-use cargo_stylus::common::{self, Config};
+use cargo_stylus::util::scripts::{self, Config};
 
 const INCREMENT_NUMBER_KEY: &str = "increment_number";
 
@@ -16,7 +16,7 @@ async fn main() -> Result<()> {
     let Config {
         client,
         additional_variables,
-    } = common::load_config_for("TESTNET").await?;
+    } = scripts::load_config_for("TESTNET").await?;
 
     // Extract `increment_number` from the additional variables in `Stylus.toml`
     let number = additional_variables
@@ -29,7 +29,7 @@ async fn main() -> Result<()> {
     abigen!(Counter, "../../target/abi.json");
 
     // Deploy program and get its address
-    let program_address = common::deploy("TESTNET").await?;
+    let program_address = scripts::deploy("TESTNET").await?;
     println!("Program deployed at {:x}", program_address);
 
     // Construct and interact with the contract
@@ -53,7 +53,7 @@ mod tests {
 
     #[tokio::test]
     async fn testnet_env_loads() {
-        let config = common::load_config_for("testnet").await.unwrap();
+        let config = scripts::load_config_for("testnet").await.unwrap();
         println!("{:?}", config);
     }
 }
