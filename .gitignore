@@ -1,1 +1,8 @@
+# .env
+/.env
+
+# Contract artifacts
 /target
+
+# Scripts artifacts
+/scripts/target
