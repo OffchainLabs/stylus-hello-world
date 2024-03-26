@@ -598,7 +598,7 @@ dependencies = [
 [[package]]
 name = "cargo-stylus"
 version = "0.2.1"
-source = "git+https://github.com/LimeChain/cargo-stylus?branch=LimeChain/stylus-script#45f12a3fabfb8838e27289ebf3c280d99a763ab4"
+source = "git+https://github.com/LimeChain/cargo-stylus?branch=LimeChain/stylus-script#023b708e2dcf9b3801d050ca6690fbd25f9cf7f0"
 dependencies = [
  "alloy-json-abi",
  "alloy-primitives 0.4.2",
@@ -622,6 +622,7 @@ dependencies = [
  "thiserror",
  "tiny-keccak",
  "tokio",
+ "toml",
  "wasmer",
 ]
 
@@ -777,23 +778,6 @@ name = "colorchoice"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "acbf1af155f9b9ef647e42cdc158db4b64a1b61f743629225fde6f3e0be2a7c7"
-
-[[package]]
-name = "common"
-version = "0.1.5"
-dependencies = [
- "alloy-primitives 0.3.3",
- "alloy-sol-types",
- "cargo-stylus",
- "ethers",
- "eyre",
- "hex",
- "mini-alloc",
- "serde",
- "stylus-sdk",
- "tokio",
- "toml",
-]
 
 [[package]]
 name = "const-hex"
@@ -1087,7 +1071,6 @@ dependencies = [
  "alloy-primitives 0.3.3",
  "alloy-sol-types",
  "cargo-stylus",
- "common",
  "ethers",
  "eyre",
  "hex",

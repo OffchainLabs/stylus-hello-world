@@ -9,7 +9,6 @@ keywords = ["arbitrum", "ethereum", "stylus", "alloy"]
 description = "Stylus hello world example"
 
 [dependencies]
-common = { path = "../common" }
 alloy-primitives = "0.3.1"
 alloy-sol-types = "0.3.1"
 mini-alloc = "0.4.2"
