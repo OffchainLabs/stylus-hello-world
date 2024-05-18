@@ -23,7 +23,7 @@ contract Counter {
 
 To set up more minimal example that still uses the Stylus SDK, use `cargo stylus new --minimal <YOUR_PROJECT_NAME>` under [OffchainLabs/cargo-stylus](https://github.com/OffchainLabs/cargo-stylus).
 
-## Quick Start 
+## Quick Start
 
 Install [Rust](https://www.rust-lang.org/tools/install), and then install the Stylus CLI tool with Cargo
 
@@ -33,7 +33,7 @@ cargo install --force cargo-stylus cargo-stylus-check
 
 Add the `wasm32-unknown-unknown` build target to your Rust compiler:
 
-```
+```bash
 rustup target add wasm32-unknown-unknown
 ```
 
@@ -45,7 +45,7 @@ cargo stylus --help
 
 Then, clone the template:
 
-```
+```bash
 git clone https://github.com/OffchainLabs/stylus-hello-world && cd stylus-hello-world
 ```
 
@@ -142,48 +142,14 @@ Confirmed tx 0x0bdb…3307, gas used 14044638
 
 Once both steps are successful, you can interact with your program as you would with any Ethereum smart contract.
 
-## Calling Your Program
+## Deploying + Interacting with `scripts`
 
-This template includes an example of how to call and transact with your program in Rust using [ethers-rs](https://github.com/gakonst/ethers-rs) under the `examples/counter.rs`. However, your programs are also Ethereum ABI equivalent if using the Stylus SDK. **They can be called and transacted with using any other Ethereum tooling.**
+You can instead opt-in to using `cargo stylus script` and run the included `deploy_and_increment` script at [`./scripts/deploy_and_increment/`](./scripts/deploy_and_increment/).
 
-By using the program address from your deployment step above, and your wallet, you can attempt to call the counter program and increase its value in storage:
+This can be done either by manually `cd`-ing into `./scripts/deploy_and_increment/` and running `cargo run`, or by running `cargo stylus script run deploy_and_increment` from anywhere in the repository.
 
-```rs
-abigen!(
-    Counter,
-    r#"[
-        function number() external view returns (uint256)
-        function setNumber(uint256 number) external
-        function increment() external
-    ]"#
-);
-let counter = Counter::new(address, client);
-let num = counter.number().call().await;
-println!("Counter number value = {:?}", num);
-
-let _ = counter.increment().send().await?.await?;
-println!("Successfully incremented counter via a tx");
-
-let num = counter.number().call().await;
-println!("New counter number value = {:?}", num);
-```
-
-To run it, set the following env vars or place them in a `.env` file this project, then:
-
-```
-STYLUS_PROGRAM_ADDRESS=<the onchain address of your deployed program>
-PRIV_KEY_PATH=<the file path for your priv key to transact with>
-RPC_URL=https://stylus-testnet.arbitrum.io/rpc
-```
-
-Next, run:
-
-```
-cargo run --example counter --target=<YOUR_ARCHITECTURE>
-```
-
-Where you can find `YOUR_ARCHITECTURE` by running `rustc -vV | grep host`. For M1 Apple computers, for example, this is `aarch64-apple-darwin` and for most Linux x86 it is `x86_64-unknown-linux-gnu`
-
+> [!NOTE]
+> This requires you to setup the credentials for `TESTNET`, see [`./Stylus.toml`](./Stylus.toml)
 ## Build Options
 
 By default, the cargo stylus tool will build your project for WASM using sensible optimizations, but you can control how this gets compiled by seeing the full README for [cargo stylus](https://github.com/OffchainLabs/cargo-stylus). If you wish to optimize the size of your compiled WASM, see the different options available [here](https://github.com/OffchainLabs/cargo-stylus/blob/main/OPTIMIZING_BINARIES.md).
@@ -194,7 +160,7 @@ The [stylus-sdk](https://github.com/OffchainLabs/stylus-sdk-rs) contains many fe
 
 First, run `cargo install cargo-expand` if you don't have the subcommand already, then:
 
-```
+```bash
 cargo expand --all-features --release --target=<YOUR_ARCHITECTURE>
 ```
 
