@@ -54,6 +54,16 @@ impl Counter {
         self.number.set(new_number);
     }
 
+    /// Sets a number in storage to a user-specified value.
+    pub fn mul_number(&mut self, new_number: U256) {
+        self.number.set(new_number * self.number.get());
+    }
+
+    /// Sets a number in storage to a user-specified value.
+    pub fn sub_number(&mut self, new_number: U256) {
+        self.number.set(new_number + self.number.get());
+    }
+
     /// Increments `number` and updates its value in storage.
     pub fn increment(&mut self) {
         let number = self.number.get();

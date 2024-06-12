@@ -17,21 +17,23 @@ use std::str::FromStr;
 use std::sync::Arc;
 
 /// Your private key file path.
-const PRIV_KEY_PATH: &str = "PRIV_KEY_PATH";
+// const PRIV_KEY_PATH: &str = "PRIV_KEY_PATH";
 
 /// Stylus RPC endpoint url.
-const RPC_URL: &str = "RPC_URL";
+const RPC_URL: &str = "";
 
 /// Deployed pragram address.
-const STYLUS_PROGRAM_ADDRESS: &str = "STYLUS_PROGRAM_ADDRESS";
+const STYLUS_PROGRAM_ADDRESS: &str = "";
 
 #[tokio::main]
 async fn main() -> eyre::Result<()> {
-    let priv_key_path =
-        std::env::var(PRIV_KEY_PATH).map_err(|_| eyre!("No {} env var set", PRIV_KEY_PATH))?;
-    let rpc_url = std::env::var(RPC_URL).map_err(|_| eyre!("No {} env var set", RPC_URL))?;
-    let program_address = std::env::var(STYLUS_PROGRAM_ADDRESS)
-        .map_err(|_| eyre!("No {} env var set", STYLUS_PROGRAM_ADDRESS))?;
+    // let priv_key_path =
+    //     std::env::var(PRIV_KEY_PATH).map_err(|_| eyre!("No {} env var set", PRIV_KEY_PATH))?;
+    // let rpc_url = std::env::var(RPC_URL).map_err(|_| eyre!("No {} env var set", RPC_URL))?;
+    // let program_address = std::env::var(STYLUS_PROGRAM_ADDRESS)
+    //     .map_err(|_| eyre!("No {} env var set", STYLUS_PROGRAM_ADDRESS))?;
+    let rpc_url = RPC_URL;
+    let program_address = STYLUS_PROGRAM_ADDRESS;
     abigen!(
         Counter,
         r#"[
@@ -44,7 +46,8 @@ async fn main() -> eyre::Result<()> {
     let provider = Provider::<Http>::try_from(rpc_url)?;
     let address: Address = program_address.parse()?;
 
-    let privkey = read_secret_from_file(&priv_key_path)?;
+    // let privkey = read_secret_from_file(&priv_key_path)?;
+    let privkey = "".to_string();
     let wallet = LocalWallet::from_str(&privkey)?;
     let chain_id = provider.get_chainid().await?.as_u64();
     let client = Arc::new(SignerMiddleware::new(
@@ -56,7 +59,10 @@ async fn main() -> eyre::Result<()> {
     let num = counter.number().call().await;
     println!("Counter number value = {:?}", num);
 
-    let _ = counter.increment().send().await?.await?;
+    let pending = counter.increment();
+    if let Some(receipt) = pending.send().await?.await? {
+        println!("Receipt = {:?}", receipt);
+    }
     println!("Successfully incremented counter via a tx");
 
     let num = counter.number().call().await;
