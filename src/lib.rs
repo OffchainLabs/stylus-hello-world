@@ -21,7 +21,7 @@
 //! Note: this code is a template-only and has not been audited.
 //!
 
-// Allow `cargo stylus export-abi` to generate a main function. something edit
+// Allow `cargo stylus export-abi` to generate a main function.
 #![cfg_attr(not(feature = "export-abi"), no_main)]
 extern crate alloc;
 
