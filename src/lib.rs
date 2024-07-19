@@ -60,7 +60,7 @@ impl Counter {
     }
 
     /// Sets a number in storage to a user-specified value.
-    pub fn sub_number(&mut self, new_number: U256) {
+    pub fn add_number(&mut self, new_number: U256) {
         self.number.set(new_number + self.number.get());
     }
 
