@@ -11,6 +11,7 @@ use ethers::{
     signers::{LocalWallet, Signer},
     types::Address,
 };
+use dotenv::dotenv;
 use eyre::eyre;
 use std::io::{BufRead, BufReader};
 use std::str::FromStr;
@@ -27,6 +28,7 @@ const STYLUS_PROGRAM_ADDRESS: &str = "STYLUS_PROGRAM_ADDRESS";
 
 #[tokio::main]
 async fn main() -> eyre::Result<()> {
+    dotenv().ok();
     let priv_key_path =
         std::env::var(PRIV_KEY_PATH).map_err(|_| eyre!("No {} env var set", PRIV_KEY_PATH))?;
     let rpc_url = std::env::var(RPC_URL).map_err(|_| eyre!("No {} env var set", RPC_URL))?;
