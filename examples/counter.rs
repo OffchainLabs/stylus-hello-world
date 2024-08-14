@@ -1,7 +1,7 @@
-//! Example on how to interact with a deployed `stylus-hello-world` program using defaults.
-//! This example uses ethers-rs to instantiate the program using a Solidity ABI.
+//! Example on how to interact with a deployed `stylus-hello-world` contract using defaults.
+//! This example uses ethers-rs to instantiate the contract using a Solidity ABI.
 //! Then, it attempts to check the current counter value, increment it via a tx,
-//! and check the value again. The deployed program is fully written in Rust and compiled to WASM
+//! and check the value again. The deployed contract is fully written in Rust and compiled to WASM
 //! but with Stylus, it is accessible just as a normal Solidity smart contract is via an ABI.
 
 use ethers::{
@@ -24,7 +24,7 @@ const PRIV_KEY_PATH: &str = "PRIV_KEY_PATH";
 const RPC_URL: &str = "RPC_URL";
 
 /// Deployed pragram address.
-const STYLUS_PROGRAM_ADDRESS: &str = "STYLUS_PROGRAM_ADDRESS";
+const STYLUS_CONTRACT_ADDRESS: &str = "STYLUS_CONTRACT_ADDRESS";
 
 #[tokio::main]
 async fn main() -> eyre::Result<()> {
@@ -32,8 +32,8 @@ async fn main() -> eyre::Result<()> {
     let priv_key_path =
         std::env::var(PRIV_KEY_PATH).map_err(|_| eyre!("No {} env var set", PRIV_KEY_PATH))?;
     let rpc_url = std::env::var(RPC_URL).map_err(|_| eyre!("No {} env var set", RPC_URL))?;
-    let program_address = std::env::var(STYLUS_PROGRAM_ADDRESS)
-        .map_err(|_| eyre!("No {} env var set", STYLUS_PROGRAM_ADDRESS))?;
+    let contract_address = std::env::var(STYLUS_CONTRACT_ADDRESS)
+        .map_err(|_| eyre!("No {} env var set", STYLUS_CONTRACT_ADDRESS))?;
     abigen!(
         Counter,
         r#"[
@@ -44,7 +44,7 @@ async fn main() -> eyre::Result<()> {
     );
 
     let provider = Provider::<Http>::try_from(rpc_url)?;
-    let address: Address = program_address.parse()?;
+    let address: Address = contract_address.parse()?;
 
     // let privkey = read_secret_from_file(&priv_key_path)?;
     let privkey = "".to_string();
