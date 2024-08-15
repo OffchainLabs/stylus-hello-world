@@ -106,7 +106,7 @@ Next, we can estimate the gas costs to deploy and activate our program before we
 ```bash
 cargo stylus deploy \
   --private-key-path=<PRIVKEY_FILE_PATH> \
-  --estimate-gas-only
+  --estimate-gas
 ```
 
 You will then see the estimated gas cost for deploying before transacting:
@@ -116,7 +116,7 @@ Deploying program to address e43a32b54e48c7ec0d3d9ed2d628783c23d65020
 Estimated gas for deployment: 1874876
 ```
 
-The above only estimates gas for the deployment tx by default. To estimate gas for activation, first deploy your program using `--mode=deploy-only`, and then run `cargo stylus deploy` with the `--estimate-gas-only` flag, `--mode=activate-only`, and specify `--activate-program-address`.
+The above only estimates gas for the deployment tx by default. To estimate gas for activation, first deploy your program using `--mode=deploy-only`, and then run `cargo stylus deploy` with the `--estimate-gas` flag, `--mode=activate-only`, and specify `--activate-program-address`.
 
 
 Here's how to deploy:
@@ -168,12 +168,12 @@ let num = counter.number().call().await;
 println!("New counter number value = {:?}", num);
 ```
 
-To run it, set the following env vars or place them in a `.env` file this project, then:
+Before running, set the following env vars or place them in a `.env` file (see: [.env.example](./.env.example)) in this project:
 
 ```
-STYLUS_PROGRAM_ADDRESS=<the onchain address of your deployed program>
-PRIV_KEY_PATH=<the file path for your priv key to transact with>
 RPC_URL=https://stylus-testnet.arbitrum.io/rpc
+STYLUS_CONTRACT_ADDRESS=<the onchain address of your deployed program>
+PRIV_KEY_PATH=<the file path for your priv key to transact with>
 ```
 
 Next, run:
