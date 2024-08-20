@@ -46,8 +46,7 @@ async fn main() -> eyre::Result<()> {
     let provider = Provider::<Http>::try_from(rpc_url)?;
     let address: Address = contract_address.parse()?;
 
-    // let privkey = read_secret_from_file(&priv_key_path)?;
-    let privkey = "".to_string();
+    let privkey = read_secret_from_file(&priv_key_path)?;
     let wallet = LocalWallet::from_str(&privkey)?;
     let chain_id = provider.get_chainid().await?.as_u64();
     let client = Arc::new(SignerMiddleware::new(
