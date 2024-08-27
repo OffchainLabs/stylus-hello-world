@@ -3227,7 +3227,7 @@ dependencies = [
 
 [[package]]
 name = "stylus-hello-world"
-version = "0.1.7"
+version = "0.1.8"
 dependencies = [
  "alloy-primitives",
  "alloy-sol-types",
