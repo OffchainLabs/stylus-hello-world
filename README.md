@@ -171,7 +171,7 @@ println!("New counter number value = {:?}", num);
 Before running, set the following env vars or place them in a `.env` file (see: [.env.example](./.env.example)) in this project:
 
 ```
-RPC_URL=https://stylus-testnet.arbitrum.io/rpc
+RPC_URL=https://sepolia-rollup.arbitrum.io/rpc
 STYLUS_CONTRACT_ADDRESS=<the onchain address of your deployed program>
 PRIV_KEY_PATH=<the file path for your priv key to transact with>
 ```
