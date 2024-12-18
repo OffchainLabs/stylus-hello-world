@@ -3,7 +3,7 @@
 //!
 //! The following contract implements the Counter example from Foundry.
 //!
-//! ```
+//! ```solidity
 //! contract Counter {
 //!     uint256 public number;
 //!     function setNumber(uint256 newNumber) public {
