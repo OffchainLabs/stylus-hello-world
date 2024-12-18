@@ -22,7 +22,7 @@
 //!
 
 // Allow `cargo stylus export-abi` to generate a main function.
-#![cfg_attr(not(feature = "export-abi"), no_main)]
+#![cfg_attr(not(any(test, feature = "export-abi")), no_main)]
 extern crate alloc;
 
 /// Import items from the SDK. The prelude contains common traits and macros.
