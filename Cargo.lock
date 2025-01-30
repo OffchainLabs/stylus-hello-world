@@ -439,6 +439,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "branches"
+version = "0.1.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7958fb9748a08a6f46ef773e87c43997a844709bc293b4c3de48135debaf9d2a"
+
+[[package]]
 name = "bs58"
 version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -894,6 +900,12 @@ name = "dunce"
 version = "1.0.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "92773504d58c093f6de2459af4af33faa518c13451eb8f2b5698ed3d36e7c813"
+
+[[package]]
+name = "dyn-clone"
+version = "1.0.17"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0d6ef0072f8a535281e4876be788938b528e9a1d43900b82c2569af7da799125"
 
 [[package]]
 name = "ecdsa"
@@ -2188,8 +2200,6 @@ dependencies = [
 [[package]]
 name = "mini-alloc"
 version = "0.7.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e3d986fb074078dcc9a560cc3afe9edf2dcf1f577b854fb65e366c331d8c7753"
 dependencies = [
  "cfg-if 1.0.0",
 ]
@@ -2779,6 +2789,15 @@ checksum = "1465873a3dfdaa8ae7cb14b4383657caab0b3e8a0aa9ae8e04b044854c8dfce2"
 dependencies = [
  "crossbeam-deque",
  "crossbeam-utils",
+]
+
+[[package]]
+name = "rclite"
+version = "0.2.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ee9f0c2e8b8ef3ea8b0d074b9a0a192d99d47e2023bec8fd6336f2d8543a43b9"
+dependencies = [
+ "branches",
 ]
 
 [[package]]
@@ -3454,6 +3473,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "stylus-core"
+version = "0.7.0"
+dependencies = [
+ "alloy-primitives",
+ "alloy-sol-types",
+ "cfg-if 1.0.0",
+ "dyn-clone",
+]
+
+[[package]]
 name = "stylus-hello-world"
 version = "0.1.10"
 dependencies = [
@@ -3464,6 +3493,7 @@ dependencies = [
  "eyre",
  "hex",
  "mini-alloc 0.4.2",
+ "rclite",
  "stylus-sdk",
  "tokio",
 ]
@@ -3471,8 +3501,6 @@ dependencies = [
 [[package]]
 name = "stylus-proc"
 version = "0.7.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "38b0ee8d057be480a457704f982a38254e13a2a7d42bb4531132d3d440e371a6"
 dependencies = [
  "alloy-primitives",
  "alloy-sol-types",
@@ -3492,8 +3520,6 @@ dependencies = [
 [[package]]
 name = "stylus-sdk"
 version = "0.7.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fec9700e00e9dfa862aad80e6b27e02e9fb0c6745f3f97f616368936faefad5f"
 dependencies = [
  "alloy-primitives",
  "alloy-sol-types",
@@ -3503,8 +3529,21 @@ dependencies = [
  "keccak-const",
  "lazy_static",
  "mini-alloc 0.7.0",
+ "rclite",
  "regex",
+ "stylus-core",
  "stylus-proc",
+ "stylus-test",
+]
+
+[[package]]
+name = "stylus-test"
+version = "0.7.0"
+dependencies = [
+ "alloy-primitives",
+ "alloy-sol-types",
+ "rclite",
+ "stylus-core",
 ]
 
 [[package]]
