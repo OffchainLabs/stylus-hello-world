@@ -9,10 +9,10 @@ keywords = ["arbitrum", "ethereum", "stylus", "alloy"]
 description = "Stylus hello world example"
 
 [dependencies]
-alloy-primitives = "=0.8.14"
-alloy-sol-types = "=0.8.14"
+alloy-primitives = "=0.8.20"
+alloy-sol-types = "=0.8.20"
 mini-alloc = "0.4.2"
-stylus-sdk = "0.7.0"
+stylus-sdk = { git = "https://github.com/OffchainLabs/stylus-sdk-rs.git", branch = "gligneul/constructors" }
 hex = "0.4.3"
 dotenv = "0.15.0"
 

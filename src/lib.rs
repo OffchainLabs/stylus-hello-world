@@ -40,6 +40,13 @@ sol_storage! {
 /// Declare that `Counter` is a contract with the following external methods.
 #[public]
 impl Counter {
+    /// Initializes the contract with a constructor parameter.
+    #[constructor]
+    #[payable]
+    pub fn constructor(&mut self, new_number: U256) {
+        self.number.set(new_number)
+    }
+
     /// Gets the number from storage.
     pub fn number(&self) -> U256 {
         self.number.get()
