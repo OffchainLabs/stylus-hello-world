@@ -42,7 +42,6 @@ sol_storage! {
 impl Counter {
     /// Initializes the contract with a constructor parameter.
     #[constructor]
-    #[payable]
     pub fn constructor(&mut self, new_number: U256) {
         self.number.set(new_number)
     }
