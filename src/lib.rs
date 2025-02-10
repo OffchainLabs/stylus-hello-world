@@ -76,10 +76,10 @@ impl Counter {
 #[cfg(test)]
 mod test {
     use super::*;
-    use stylus_sdk::testing::*;
 
     #[test]
     fn test_counter() {
+        use stylus_test::*;
         let vm = TestVM::default();
         let mut contract = Counter::from(&vm);
 
