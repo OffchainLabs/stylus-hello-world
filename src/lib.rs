@@ -41,4 +41,43 @@ impl Counter {
         let number = self.number.get();
         self.set_number(number + U256::from(1));
     }
+
+    /// Adds the wei value from msg_value to the number in storage.
+    #[payable]
+    pub fn add_from_msg_value(&mut self) {
+        let number = self.number.get();
+        self.set_number(number + self.vm().msg_value());
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use stylus_sdk::testing::*;
+
+    #[test]
+    fn test_counter() {
+        let vm = TestVM::default();
+        let mut contract = Counter::from(&vm);
+
+        assert_eq!(U256::ZERO, contract.number());
+
+        contract.increment();
+        assert_eq!(U256::from(1), contract.number());
+
+        contract.add_number(U256::from(3));
+        assert_eq!(U256::from(4), contract.number());
+
+        contract.mul_number(U256::from(2));
+        assert_eq!(U256::from(8), contract.number());
+
+        contract.set_number(U256::from(100));
+        assert_eq!(U256::from(100), contract.number());
+
+        // Override the msg value for future contract method invocations.
+        vm.set_value(U256::from(2));
+
+        contract.add_from_msg_value();
+        assert_eq!(U256::from(102), contract.number());
+    }
 }
