@@ -79,7 +79,7 @@ mod test {
 
     #[test]
     fn test_counter() {
-        use stylus_test::*;
+        use stylus_sdk::testing::*;
         let vm = TestVM::default();
         let mut contract = Counter::from(&vm);
 
