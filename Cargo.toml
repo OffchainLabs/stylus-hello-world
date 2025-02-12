@@ -1,6 +1,6 @@
 [package]
 name = "stylus-hello-world"
-version = "0.1.10"
+version = "0.1.11"
 edition = "2021"
 license = "MIT OR Apache-2.0"
 homepage = "https://github.com/OffchainLabs/stylus-hello-world"
@@ -9,10 +9,10 @@ keywords = ["arbitrum", "ethereum", "stylus", "alloy"]
 description = "Stylus hello world example"
 
 [dependencies]
-alloy-primitives = "=0.8.14"
-alloy-sol-types = "=0.8.14"
+alloy-primitives = "=0.8.20"
+alloy-sol-types = "=0.8.20"
 mini-alloc = "0.4.2"
-stylus-sdk = "0.7.0"
+stylus-sdk = "0.8.0"
 hex = "0.4.3"
 dotenv = "0.15.0"
 
