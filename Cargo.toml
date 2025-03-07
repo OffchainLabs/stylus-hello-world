@@ -12,7 +12,7 @@ description = "Stylus hello world example"
 alloy-primitives = "=0.8.20"
 alloy-sol-types = "=0.8.20"
 mini-alloc = "0.4.2"
-stylus-sdk = "0.8.0"
+stylus-sdk = "0.8.2"
 hex = "0.4.3"
 dotenv = "0.15.0"
 
@@ -20,10 +20,12 @@ dotenv = "0.15.0"
 tokio = { version = "1.12.0", features = ["full"] }
 ethers = "2.0"
 eyre = "0.6.8"
+stylus-hello-world = { path = ".", features = ["stylus-test"] }
 
 [features]
 export-abi = ["stylus-sdk/export-abi"]
 debug = ["stylus-sdk/debug"]
+stylus-test = ["stylus-sdk/stylus-test"]
 
 [[bin]]
 name = "stylus-hello-world"

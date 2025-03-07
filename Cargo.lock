@@ -55,13 +55,13 @@ checksum = "683d7910e743518b0e34f1186f92494becacb047c7b6bf616c96772180fef923"
 
 [[package]]
 name = "alloy-chains"
-version = "0.1.59"
+version = "0.1.64"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4d37bc62b68c056e3742265ab73c73d413d07357909e0e4ea1e95453066a7469"
+checksum = "963fc7ac17f25d92c237448632330eb87b39ba8aa0209d4b517069a05b57db62"
 dependencies = [
  "alloy-primitives",
  "num_enum",
- "strum",
+ "strum 0.27.1",
 ]
 
 [[package]]
@@ -120,14 +120,14 @@ dependencies = [
 
 [[package]]
 name = "alloy-eip7702"
-version = "0.5.0"
+version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cabf647eb4650c91a9d38cb6f972bb320009e7e9d61765fb688a86f1563b33e8"
+checksum = "9b15b13d38b366d01e818fe8e710d4d702ef7499eacd44926a06171dd9585d0c"
 dependencies = [
  "alloy-primitives",
  "alloy-rlp",
- "derive_more",
  "serde",
+ "thiserror 2.0.11",
 ]
 
 [[package]]
@@ -813,6 +813,12 @@ dependencies = [
  "threadpool",
  "zeroize",
 ]
+
+[[package]]
+name = "branches"
+version = "0.1.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7958fb9748a08a6f46ef773e87c43997a844709bc293b4c3de48135debaf9d2a"
 
 [[package]]
 name = "bs58"
@@ -1611,7 +1617,7 @@ dependencies = [
  "rlp",
  "serde",
  "serde_json",
- "strum",
+ "strum 0.26.3",
  "syn 2.0.98",
  "tempfile",
  "thiserror 1.0.69",
@@ -2774,9 +2780,9 @@ dependencies = [
 
 [[package]]
 name = "mini-alloc"
-version = "0.8.0"
+version = "0.8.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3a492955e0c13877e83f55def53c82fca17333271b447157a5e06e6a973432e3"
+checksum = "654a82c8168915e4f93467e7e196d08d49111ad7d59609416304a9666dd241e9"
 dependencies = [
  "cfg-if 1.0.0",
 ]
@@ -2803,9 +2809,9 @@ dependencies = [
 
 [[package]]
 name = "native-tls"
-version = "0.2.13"
+version = "0.2.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0dab59f8e050d5df8e4dd87d9206fb6f65a483e20ac9fda365ade4fab353196c"
+checksum = "87de3442987e9dbec73158d5c715e7ad9072fda936bb03d19d7fa10e00520f0e"
 dependencies = [
  "libc",
  "log",
@@ -2943,9 +2949,9 @@ dependencies = [
 
 [[package]]
 name = "openssl"
-version = "0.10.70"
+version = "0.10.71"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "61cfb4e166a8bb8c9b55c500bc2308550148ece889be90f609377e58140f42c6"
+checksum = "5e14130c6a98cd258fdcb0fb6d744152343ff729cbfcb28c656a9d12b999fbcd"
 dependencies = [
  "bitflags 2.8.0",
  "cfg-if 1.0.0",
@@ -2975,9 +2981,9 @@ checksum = "d05e27ee213611ffe7d6348b942e8f942b37114c00cc03cec254295a4a17852e"
 
 [[package]]
 name = "openssl-sys"
-version = "0.9.105"
+version = "0.9.106"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8b22d5b84be05a8d6947c7cb71f7c849aa0f112acd4bf51c2a7c1c988ac0a9dc"
+checksum = "8bb61ea9811cc39e3c2069f40b8b8e2e70d8569b361f879786cc7ed48b777cdd"
 dependencies = [
  "cc",
  "libc",
@@ -3431,6 +3437,15 @@ checksum = "1465873a3dfdaa8ae7cb14b4383657caab0b3e8a0aa9ae8e04b044854c8dfce2"
 dependencies = [
  "crossbeam-deque",
  "crossbeam-utils",
+]
+
+[[package]]
+name = "rclite"
+version = "0.2.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ee9f0c2e8b8ef3ea8b0d074b9a0a192d99d47e2023bec8fd6336f2d8543a43b9"
+dependencies = [
+ "branches",
 ]
 
 [[package]]
@@ -4172,7 +4187,16 @@ version = "0.26.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8fec0f0aef304996cf250b31b5a10dee7980c85da9d759361292b8bca5a18f06"
 dependencies = [
- "strum_macros",
+ "strum_macros 0.26.4",
+]
+
+[[package]]
+name = "strum"
+version = "0.27.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f64def088c51c9510a8579e3c5d67c65349dcf755e5479ad3d010aa6454e2c32"
+dependencies = [
+ "strum_macros 0.27.1",
 ]
 
 [[package]]
@@ -4189,10 +4213,23 @@ dependencies = [
 ]
 
 [[package]]
-name = "stylus-core"
-version = "0.8.0"
+name = "strum_macros"
+version = "0.27.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "eab76585c67e0f6da0b80374f9c46bf985b7f0f8ce6a94f01b49b77d93c438a1"
+checksum = "c77a8c5abcaf0f9ce05d62342b7d298c346515365c36b673df4ebe3ced01fde8"
+dependencies = [
+ "heck",
+ "proc-macro2",
+ "quote",
+ "rustversion",
+ "syn 2.0.98",
+]
+
+[[package]]
+name = "stylus-core"
+version = "0.8.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e077bc247d7baf136fd04932f8bfd885856a3e4f81ea5e8a07f7cdd75e50fa4f"
 dependencies = [
  "alloy-primitives",
  "alloy-sol-types",
@@ -4211,15 +4248,16 @@ dependencies = [
  "eyre",
  "hex",
  "mini-alloc 0.4.2",
+ "stylus-hello-world",
  "stylus-sdk",
  "tokio",
 ]
 
 [[package]]
 name = "stylus-proc"
-version = "0.8.0"
+version = "0.8.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ae244a7ececb3d11a1c4dac22be160a01e7bb6aecd0f4fc0ea8519c998292cb6"
+checksum = "47b545bb8dae98090d0b8897c8af36d25c561de9b6eb3532829d1efe58c19e41"
 dependencies = [
  "alloy-primitives",
  "alloy-sol-types",
@@ -4238,9 +4276,9 @@ dependencies = [
 
 [[package]]
 name = "stylus-sdk"
-version = "0.8.0"
+version = "0.8.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "50aff7845170bf47d31b0e4f8a5d164c496a2b483b58961dbde63a3a9fc90692"
+checksum = "301aac79d25f60a90a2d6b01b40ad80a721efbea5b2ccf7a0586f13aeaff5707"
 dependencies = [
  "alloy-primitives",
  "alloy-sol-types",
@@ -4249,7 +4287,8 @@ dependencies = [
  "hex",
  "keccak-const",
  "lazy_static",
- "mini-alloc 0.8.0",
+ "mini-alloc 0.8.2",
+ "rclite",
  "regex",
  "stylus-core",
  "stylus-proc",
@@ -4258,9 +4297,9 @@ dependencies = [
 
 [[package]]
 name = "stylus-test"
-version = "0.8.0"
+version = "0.8.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1599432abf2f77af5565f997f0b905b80a9a4b13c4ab034c38ad25c097b19b88"
+checksum = "aeeb541671b7ac052687e877251a62c8cbb47ac79f527c1b1cdbf659095ec774"
 dependencies = [
  "alloy-primitives",
  "alloy-provider",
