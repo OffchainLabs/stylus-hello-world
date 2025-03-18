@@ -22,6 +22,9 @@ ethers = "2.0"
 eyre = "0.6.8"
 stylus-sdk = { version = "0.8.3", features = ["stylus-test"] }
 
+# Downgrade rclite to 0.2.5 to avoid broken build on Macos
+rclite = "=0.2.5"
+
 [features]
 export-abi = ["stylus-sdk/export-abi"]
 debug = ["stylus-sdk/debug"]
