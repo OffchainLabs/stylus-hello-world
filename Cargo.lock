@@ -832,9 +832,12 @@ dependencies = [
 
 [[package]]
 name = "branches"
-version = "0.1.3"
+version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7958fb9748a08a6f46ef773e87c43997a844709bc293b4c3de48135debaf9d2a"
+checksum = "9c3cb31f305a2591edaae2206f29e1e05b19ba48eba41042a18735bcc0efe165"
+dependencies = [
+ "rustc_version 0.2.3",
+]
 
 [[package]]
 name = "bs58"
@@ -3451,9 +3454,9 @@ dependencies = [
 
 [[package]]
 name = "rclite"
-version = "0.2.5"
+version = "0.2.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4e49751b6c520e9dd8121024aba39edb00c61458febc5403e6cdff804fa9de72"
+checksum = "4e79f2d4b75d397f03c8102b2e6b1a7e24b9cd7d7e0d7dafc0655aa38483b2b9"
 dependencies = [
  "branches",
 ]
@@ -3710,6 +3713,15 @@ checksum = "3e75f6a532d0fd9f7f13144f392b6ad56a32696bfcd9c78f797f16bbb6f072d6"
 
 [[package]]
 name = "rustc_version"
+version = "0.2.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "138e3e0acb6c9fb258b19b67cb8abd63c00679d2851805ea151465464fe9030a"
+dependencies = [
+ "semver 0.9.0",
+]
+
+[[package]]
+name = "rustc_version"
 version = "0.3.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f0dfe2087c51c460008730de8b57e6a320782fbfb312e1f4d520e6c6fae155ee"
@@ -3927,11 +3939,20 @@ dependencies = [
 
 [[package]]
 name = "semver"
+version = "0.9.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1d7eb9ef2c18661902cc47e535f9bc51b78acd254da71d375c2f6720d9a40403"
+dependencies = [
+ "semver-parser 0.7.0",
+]
+
+[[package]]
+name = "semver"
 version = "0.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f301af10236f6df4160f7c3f04eec6dbc70ace82d23326abad5edee88801c6b6"
 dependencies = [
- "semver-parser",
+ "semver-parser 0.10.3",
 ]
 
 [[package]]
@@ -3942,6 +3963,12 @@ checksum = "56e6fa9c48d24d85fb3de5ad847117517440f6beceb7798af16b4a87d616b8d0"
 dependencies = [
  "serde",
 ]
+
+[[package]]
+name = "semver-parser"
+version = "0.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "388a1df253eca08550bef6c72392cfe7c30914bf41df5269b68cbd6ff8f570a3"
 
 [[package]]
 name = "semver-parser"
@@ -4251,7 +4278,6 @@ dependencies = [
  "eyre",
  "hex",
  "mini-alloc",
- "rclite",
  "stylus-sdk",
  "tokio",
 ]
