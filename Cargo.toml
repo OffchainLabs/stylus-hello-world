@@ -20,6 +20,7 @@ dotenv = "0.15.0"
 tokio = { version = "1.12.0", features = ["full"] }
 ethers = "2.0"
 eyre = "0.6.8"
+stylus-sdk = { version = "0.8.3", features = ["stylus-test"] }
 
 [features]
 export-abi = ["stylus-sdk/export-abi"]
