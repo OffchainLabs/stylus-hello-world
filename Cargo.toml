@@ -1,6 +1,6 @@
 [package]
 name = "stylus-hello-world"
-version = "0.1.10"
+version = "0.1.11"
 edition = "2021"
 license = "MIT OR Apache-2.0"
 homepage = "https://github.com/OffchainLabs/stylus-hello-world"
@@ -11,8 +11,8 @@ description = "Stylus hello world example"
 [dependencies]
 alloy-primitives = "=0.8.20"
 alloy-sol-types = "=0.8.20"
-mini-alloc = "0.4.2"
-stylus-sdk = { git = "https://github.com/OffchainLabs/stylus-sdk-rs.git", branch = "gligneul/constructors" }
+mini-alloc = "0.8.3"
+stylus-sdk = { git = "https://github.com/OffchainLabs/stylus-sdk-rs.git", branch = "main" }
 hex = "0.4.3"
 dotenv = "0.15.0"
 
@@ -20,6 +20,7 @@ dotenv = "0.15.0"
 tokio = { version = "1.12.0", features = ["full"] }
 ethers = "2.0"
 eyre = "0.6.8"
+stylus-sdk = { git = "https://github.com/OffchainLabs/stylus-sdk-rs.git", branch = "main", features = ["stylus-test"] }
 
 [features]
 export-abi = ["stylus-sdk/export-abi"]
