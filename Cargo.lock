@@ -2832,16 +2832,16 @@ checksum = "6877bb514081ee2a7ff5ef9de3281f14a4dd4bceac4c09388074a6b5df8a139a"
 [[package]]
 name = "mini-alloc"
 version = "0.8.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3b3dc09847999e8f92fb6ff6f3e11e9ac1b1976208aed3d6a3688d94132f4298"
+source = "git+https://github.com/OffchainLabs/stylus-sdk-rs.git?branch=main#756a30d14cb3bbf1b5e24d01377b346f21041367"
 dependencies = [
  "cfg-if",
 ]
 
 [[package]]
 name = "mini-alloc"
-version = "0.8.3"
-source = "git+https://github.com/OffchainLabs/stylus-sdk-rs.git?branch=main#756a30d14cb3bbf1b5e24d01377b346f21041367"
+version = "0.8.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2bb2aa3693a765fb59300b47151b0587b4058a73dec61f7fda974e160856e4d0"
 dependencies = [
  "cfg-if",
 ]
@@ -4349,7 +4349,7 @@ dependencies = [
  "ethers",
  "eyre",
  "hex",
- "mini-alloc 0.8.3 (registry+https://github.com/rust-lang/crates.io-index)",
+ "mini-alloc 0.8.4",
  "stylus-sdk",
  "tokio",
 ]
@@ -4387,7 +4387,7 @@ dependencies = [
  "hex",
  "keccak-const",
  "lazy_static",
- "mini-alloc 0.8.3 (git+https://github.com/OffchainLabs/stylus-sdk-rs.git?branch=main)",
+ "mini-alloc 0.8.3",
  "rclite",
  "regex",
  "stylus-core",

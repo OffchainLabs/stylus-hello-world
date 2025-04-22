@@ -11,7 +11,7 @@ description = "Stylus hello world example"
 [dependencies]
 alloy-primitives = "=0.8.20"
 alloy-sol-types = "=0.8.20"
-mini-alloc = "0.8.3"
+mini-alloc = "0.8.4"
 stylus-sdk = { git = "https://github.com/OffchainLabs/stylus-sdk-rs.git", branch = "main" }
 hex = "0.4.3"
 dotenv = "0.15.0"
@@ -38,4 +38,7 @@ codegen-units = 1
 strip = true
 lto = true
 panic = "abort"
-opt-level = "s"
+
+# If you need to reduce the binary size, it is advisable to try other
+# optimization levels, such as "s" and "z"
+opt-level = 3
