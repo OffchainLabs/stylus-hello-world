@@ -4,6 +4,7 @@
 //! and check the value again. The deployed contract is fully written in Rust and compiled to WASM
 //! but with Stylus, it is accessible just as a normal Solidity smart contract is via an ABI.
 
+use dotenv::dotenv;
 use ethers::{
     middleware::SignerMiddleware,
     prelude::abigen,
@@ -11,7 +12,6 @@ use ethers::{
     signers::{LocalWallet, Signer},
     types::Address,
 };
-use dotenv::dotenv;
 use eyre::eyre;
 use std::io::{BufRead, BufReader};
 use std::str::FromStr;
