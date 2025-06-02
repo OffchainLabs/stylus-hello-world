@@ -4403,7 +4403,6 @@ dependencies = [
  "ethers",
  "eyre",
  "hex",
- "mini-alloc",
  "stylus-sdk",
  "tokio",
 ]
