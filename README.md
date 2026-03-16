@@ -29,11 +29,12 @@ Install [Rust](https://www.rust-lang.org/tools/install), and then install the St
 
 ```bash
 cargo install --force cargo-stylus cargo-stylus-check
+rustup default stable
 ```
 
 Add the `wasm32-unknown-unknown` build target to your Rust compiler:
 
-```
+```bash
 rustup target add wasm32-unknown-unknown
 ```
 
@@ -45,7 +46,7 @@ cargo stylus --help
 
 Then, clone the template:
 
-```
+```bash
 git clone https://github.com/OffchainLabs/stylus-hello-world && cd stylus-hello-world
 ```
 
@@ -98,7 +99,7 @@ You can use the `cargo stylus` command to also deploy your program to the Stylus
 our program compiles to valid WASM for Stylus and will succeed a deployment onchain without transacting. By default, this will use the Stylus testnet public RPC endpoint. See here for [Stylus testnet information](https://docs.arbitrum.io/stylus/reference/testnet-information)
 
 ```bash
-cargo stylus check
+cargo stylus check -e https://sepolia-rollup.arbitrum.io/rpc
 ```
 
 If successful, you should see:
@@ -132,7 +133,8 @@ Here's how to deploy:
 
 ```bash
 cargo stylus deploy \
-  --private-key-path=<PRIVKEY_FILE_PATH>
+  --private-key-path=<PRIVKEY_FILE_PATH> \
+  -e <RPC_URL>
 ```
 
 The CLI will send 2 transactions to deploy and activate your program onchain.
